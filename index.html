@@ -586,6 +586,9 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
 </div>
 
 <script>
+// ── UTILS ────────────────────────────────────────────────────
+const $=id=>document.getElementById(id);
+
 // ── STATE ────────────────────────────────────────────────────
 const S = {
   geo:'circular', steps:[], n:0, coords:null,
@@ -1080,7 +1083,6 @@ if('serviceWorker' in navigator){
   navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{});
 }
 
-const $=id=>document.getElementById(id);
 // ── INIT ──────────────────────────────────────────────────────
 load();
 updTUI();
