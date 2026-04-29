@@ -550,7 +550,7 @@ function toggleTimer(){
 function tTick(){
   $('tDisp').textContent = fmtMs(tElapsed());
   if(S.mode==='drop' && T.running) updDropBox(tElapsed());
-  if(S.mode==='time' && T.running && !S.acq.awaitInput && S.tcQueueIdx>=0) tickCountdown();
+  if(S.mode==='time' && T.running && S.tcQueueIdx>=0) tickCountdown();
 }
 function updTUI(){
   const running = T.running;
@@ -716,23 +716,35 @@ function tickCountdown(){
   $('ctdDisp').className='ctd-time'+(cls?' '+cls:'');
   $('ctdFill').style.width=(prog*100)+'%';
   $('ctdFill').className='ctd-fill'+(cls?' '+cls:'');
-  if(elapsed>=total) triggerTimeInterval();
+  // don't re-trigger while user is entering data, but keep display ticking
+  if(elapsed>=total && !S.acq.awaitInput) triggerTimeInterval();
 }
 function triggerTimeInterval(){
   if(S.acq.awaitInput) return;
   if(S.tcQueueIdx<0||S.tcQueueIdx>=S.tcQueue.length) return;
-  // Capture exact elapsed for THIS interval
+  // 1. Capture EXACT Δt for this interval (before any reset)
   S.acq.lapMs = Date.now() - S.tcIntervalStart;
   S.acq.awaitInput = true;
-  // Show prompt — queue NOT advanced yet, tcIntervalStart NOT reset yet
+  // 2. Show prompt for interval just completed
   $('h1PromptIdx').textContent = S.tcQueueIdx+1;
   $('tcH0Disp').textContent = S.acq.hCurr!==null ? S.acq.hCurr.toFixed(3)+' m' : '–';
   $('tcH1').value='';
   $('h1Prompt').classList.remove('hide');
   $('h1Prompt').classList.add('flash');
   setTimeout(()=>$('h1Prompt').classList.remove('flash'),2200);
+  // 3. Immediately advance queue and reset tcIntervalStart for NEXT interval
+  //    → next countdown runs during data entry, total = exact sum of intervals
+  S.tcQueueIdx++;
+  if(S.tcQueueIdx < S.tcQueue.length){
+    S.tcIntervalStart = Date.now();
+    const niv = S.tcQueue[S.tcQueueIdx];
+    const rm=Math.floor(niv.secs/60), rs=niv.secs%60;
+    $('ctdDisp').textContent=`${String(rm).padStart(2,'0')}:${String(rs).padStart(2,'0')}`;
+    $('ctdDisp').className='ctd-time';
+    $('ctdFill').style.width='0%';
+    $('ctdFill').className='ctd-fill';
+  }
   renderIQ();
-  // Scroll + focus for keyboard
   requestAnimationFrame(()=>{
     $('h1Prompt').scrollIntoView({behavior:'smooth',block:'nearest'});
     $('tcH1').focus();
@@ -752,21 +764,14 @@ function registerTimeStep(){
   S.acq.hCurr=h1;
   S.acq.awaitInput=false;
   $('h1Prompt').classList.add('hide');
-  S.tcQueueIdx++;
-  if(S.tcQueueIdx>=S.tcQueue.length){
+  // tcQueueIdx already advanced in triggerTimeInterval — just check if done
+  const done = S.tcQueueIdx >= S.tcQueue.length;
+  if(done){
     clearInterval(T.id); T.running=false; updTUI();
     $('ctdWrap').classList.add('hide');
     S.tcQueueIdx=-1;
-    toast('✓ Prova completata!',4000);
+    toast(`✓ Prova completata! k = ${fmtK(S.steps[S.steps.length-1].k)} m/s`, 4000);
   } else {
-    // ← countdown for NEXT interval starts NOW, after user confirms
-    S.tcIntervalStart = Date.now();
-    const niv=S.tcQueue[S.tcQueueIdx];
-    const rm=Math.floor(niv.secs/60), rs=niv.secs%60;
-    $('ctdDisp').textContent=`${String(rm).padStart(2,'0')}:${String(rs).padStart(2,'0')}`;
-    $('ctdDisp').className='ctd-time';
-    $('ctdFill').style.width='0%';
-    $('ctdFill').className='ctd-fill';
     toast(`Lettura ${S.n}: k = ${fmtK(S.steps[S.steps.length-1].k)} m/s`);
   }
   renderIQ();
