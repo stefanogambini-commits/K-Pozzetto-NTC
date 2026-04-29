@@ -991,19 +991,47 @@ function toast(m,d=2500){
 function showModal(){ $('modal').classList.add('show'); }
 function hideModal(){ $('modal').classList.remove('show'); }
 function doReset(){
-  hideModal(); tReset();
+  hideModal();
+  // 1 — stop timer directly, no cascading calls
+  clearInterval(T.id);
+  T.running=false; T.savedMs=0; T.lapCount=0;
+  // 2 — reset full state
   S.steps=[]; S.n=0; S.coords=null; S.mode='manual';
   S.acq={hCurr:null,awaitInput:false,lapMs:0};
   S.tcQueue=[]; S.tcQueueIdx=-1; S.tcIntervalStart=0;
-  ['spotName','notes','dim','h0','h1','dcH0','dcDh','tcH0','tcH1'].forEach(id=>$(id).value='');
+  // 3 — clear all inputs
+  ['spotName','notes','dim','h0','h1','dcH0','dcDh','tcH0','tcH1']
+    .forEach(id=>{ $(id).value=''; });
   $('mins').value='0'; $('secs').value='0';
   $('iqMins').value='2'; $('iqSecs').value='0';
+  // 4 — reset timer display
+  $('tDisp').textContent='00:00.0'; $('tDisp').className='tnum';
+  $('tStat').textContent='Pronto';  $('tStat').className='tstatus';
+  $('btnSS').innerHTML='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Start';
+  $('btnSS').className='tbtn t-start';
+  $('btnMark').disabled=true; $('btnMark').className='tbtn t-mark hide';
+  $('lapBadge').classList.add('hide');
+  // 5 — reset mode tabs & panels to manual
+  ['manual','drop','time'].forEach(id=>{
+    $('tab_'+id).classList.toggle('on', id==='manual');
+    $('pan_'+id).classList.toggle('hide', id!=='manual');
+  });
+  // 6 — reset mode-specific UI
+  $('ctdWrap').classList.add('hide');
+  $('h1Prompt').classList.add('hide');
+  $('dtAutoLabel').classList.add('hide');
+  resetDropBox();
+  // 7 — reset geometry & GPS
   setGeo('circular');
-  setGPS('none','Coordinate GPS','Non acquisite');
+  $('gpsDot').className='gps-dot';
+  $('gpsLbl').textContent='Coordinate GPS';
+  $('gpsCoord').textContent='Non acquisite';
   $('btnGps').textContent='GPS';
-  setMode('manual'); clearAllErr();
+  // 8 — re-render data sections
+  clearAllErr();
   renderList(); renderRes(); renderIQ();
-  $('stepCtr').textContent=1; updComp(); updBtnManual();
+  $('stepCtr').textContent=1;
+  updComp(); updBtnManual();
   localStorage.removeItem('kfield');
   toast('Dati azzerati');
 }
