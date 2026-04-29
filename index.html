@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#5C3D1E">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="K-Field">
 <title>K-Field-Hydraulic</title>
 <style>
 :root{
@@ -13,122 +12,83 @@
   --br-ghost:#F5EDE0;--bg:#EDE4D7;--surf:#FFF;--surf2:#FAF5EE;
   --bdr:#DDD0BC;--bdr-lt:#EEE5D6;--txt:#2C1A08;--txt2:#6B5038;--txt3:#9A8468;
   --grn:#1E6E42;--grn-bg:#E8F5EE;--red:#B83022;--red-bg:#FAEEE9;
-  --org:#B86B10;--org-bg:#FEF3E2;--blu:#155FA0;--teal:#0D6B73;--teal-bg:#E3F4F5;
-  --r:10px;--rs:6px;--tr:.18s ease;
+  --org:#B86B10;--org-bg:#FEF3E2;--r:10px;--rs:6px;--tr:.18s ease;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
   background:var(--bg);color:var(--txt);min-height:100vh;padding-bottom:60px;
   -webkit-font-smoothing:antialiased;font-size:15px}
-
-/* HEADER */
 .hdr{background:var(--br);color:#fff;padding:14px 16px 12px;display:flex;
   align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;
   box-shadow:0 2px 10px rgba(40,20,0,.3)}
 .hdr h1{font-size:18px;font-weight:700;letter-spacing:-.3px}
 .hdr p{font-size:11px;opacity:.7;margin-top:1px}
 .btn-ico{background:rgba(255,255,255,.15);border:none;color:#fff;width:36px;height:36px;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:background var(--tr)}
-.btn-ico:hover{background:rgba(255,255,255,.28)}
+  border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .btn-ico svg{width:16px;height:16px;fill:currentColor}
-
-/* LAYOUT */
 .wrap{max-width:560px;margin:0 auto;padding:14px 12px;display:flex;flex-direction:column;gap:12px}
-
-/* CARD */
-.card{background:var(--surf);border-radius:var(--r);
-  box-shadow:0 1px 4px rgba(40,20,0,.08),0 0 0 .5px var(--bdr)}
-.ch{display:flex;align-items:center;gap:8px;padding:10px 14px 9px;
-  border-bottom:.5px solid var(--bdr-lt);background:var(--surf2);
-  border-radius:var(--r) var(--r) 0 0}
-.ch-ico{width:26px;height:26px;border-radius:6px;background:var(--br-ghost);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card{background:var(--surf);border-radius:var(--r);box-shadow:0 1px 4px rgba(40,20,0,.08),0 0 0 .5px var(--bdr)}
+.ch{display:flex;align-items:center;gap:8px;padding:10px 14px 9px;border-bottom:.5px solid var(--bdr-lt);
+  background:var(--surf2);border-radius:var(--r) var(--r) 0 0}
+.ch-ico{width:26px;height:26px;border-radius:6px;background:var(--br-ghost);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ch-ico svg{width:14px;height:14px;fill:var(--br-mid)}
-.ch h2{font-size:12px;font-weight:700;text-transform:uppercase;
-  letter-spacing:.6px;color:var(--br-mid);flex:1}
+.ch h2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--br-mid);flex:1}
 .cb{padding:12px 14px;display:flex;flex-direction:column;gap:10px}
-.cf{padding:7px 14px 11px;font-size:11.5px;color:var(--txt3);
-  border-top:.5px solid var(--bdr-lt);line-height:1.5}
+.cf{padding:7px 14px 11px;font-size:11.5px;color:var(--txt3);border-top:.5px solid var(--bdr-lt);line-height:1.5}
 .cf code{font-size:11px;background:var(--br-ghost);padding:1px 5px;border-radius:3px;color:var(--br-mid)}
-
-/* FIELDS */
 .fr{display:flex;align-items:center;gap:10px}
 .f-ico{width:22px;text-align:center;flex-shrink:0}
 .f-ico svg{width:16px;height:16px;fill:var(--br-lt);vertical-align:middle}
 .f-lbl{font-size:14px;color:var(--txt2);flex:1}
-input[type=text],input[type=number]{font-size:16px;font-family:inherit;
-  border:1.5px solid var(--bdr);border-radius:var(--rs);padding:8px 10px;
-  background:var(--bg);color:var(--txt);outline:none;-webkit-appearance:none;width:100%;
+input[type=text]{font-size:16px;font-family:inherit;border:1.5px solid var(--bdr);border-radius:var(--rs);
+  padding:8px 10px;background:var(--bg);color:var(--txt);outline:none;-webkit-appearance:none;width:100%;
   transition:border-color var(--tr),box-shadow var(--tr)}
 input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
 .i-right{text-align:right}.i-center{text-align:center}.i-short{width:110px!important}
-
-/* SEGMENTED */
 .seg{display:flex;background:var(--br-ghost);border-radius:8px;padding:3px;gap:3px}
-.seg button{flex:1;border:none;background:transparent;padding:8px 4px;border-radius:5px;
-  font-size:14px;font-weight:500;color:var(--txt2);cursor:pointer;transition:all var(--tr);
-  display:flex;align-items:center;justify-content:center;gap:6px;font-family:inherit}
+.seg button{flex:1;border:none;background:transparent;padding:8px 4px;border-radius:5px;font-size:14px;
+  font-weight:500;color:var(--txt2);cursor:pointer;transition:all var(--tr);display:flex;align-items:center;
+  justify-content:center;gap:6px;font-family:inherit}
 .seg button svg{width:14px;height:14px;fill:currentColor}
 .seg button.on{background:var(--br);color:#fff;box-shadow:0 2px 6px rgba(92,61,30,.3)}
-
-/* MODE TABS (3 tabs) */
 .mtabs{display:flex;background:var(--br-ghost);border-radius:8px;padding:3px;gap:2px}
-.mtab{flex:1;border:none;background:transparent;padding:7px 2px;border-radius:5px;
-  font-size:11.5px;font-weight:600;color:var(--txt3);cursor:pointer;transition:all var(--tr);
-  text-align:center;font-family:inherit;line-height:1.3}
+.mtab{flex:1;border:none;background:transparent;padding:7px 2px;border-radius:5px;font-size:11.5px;
+  font-weight:600;color:var(--txt3);cursor:pointer;transition:all var(--tr);text-align:center;font-family:inherit;line-height:1.3}
 .mtab small{display:block;font-size:9.5px;font-weight:500;opacity:.8;margin-top:1px}
 .mtab.on{background:var(--br);color:#fff;box-shadow:0 2px 5px rgba(92,61,30,.3)}
 .mtab.on small{opacity:.75}
-
-/* ── TIMER WIDGET ── */
-.tbox{background:var(--br-ghost);border-radius:var(--rs);padding:12px 12px 10px;
-  display:flex;flex-direction:column;gap:8px}
+/* TIMER */
+.tbox{background:var(--br-ghost);border-radius:var(--rs);padding:12px 12px 10px;display:flex;flex-direction:column;gap:8px}
 .t-top{display:flex;align-items:center;gap:10px}
-.tnum{font-size:38px;font-weight:700;letter-spacing:1px;color:var(--br);
-  font-variant-numeric:tabular-nums;font-family:'Menlo','Consolas',monospace,system-ui;flex:1;
-  transition:color var(--tr)}
-.tnum.run{color:var(--grn)}
-.tnum.done{color:var(--br-mid)}
-.tstatus{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
-  color:var(--txt3);transition:color var(--tr)}
-.tstatus.run{color:var(--grn)}
-.tstatus.paused{color:var(--org)}
+.tnum{font-size:38px;font-weight:700;letter-spacing:1px;color:var(--br);font-variant-numeric:tabular-nums;
+  font-family:'Menlo','Consolas',monospace,system-ui;flex:1;transition:color var(--tr)}
+.tnum.run{color:var(--grn)}.tnum.done{color:var(--br-mid)}
+.tstatus{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--txt3);transition:color var(--tr)}
+.tstatus.run{color:var(--grn)}.tstatus.paused{color:var(--org)}
 .tbrow{display:grid;grid-template-columns:1fr 1fr 44px;gap:6px}
-.tbtn{padding:9px 6px;border-radius:var(--rs);font-size:13px;font-weight:700;
-  border:1.5px solid var(--bdr);background:var(--surf);color:var(--txt2);cursor:pointer;
-  transition:all var(--tr);font-family:inherit;display:flex;align-items:center;
-  justify-content:center;gap:5px}
+.tbtn{padding:9px 6px;border-radius:var(--rs);font-size:13px;font-weight:700;border:1.5px solid var(--bdr);
+  background:var(--surf);color:var(--txt2);cursor:pointer;transition:all var(--tr);font-family:inherit;
+  display:flex;align-items:center;justify-content:center;gap:5px}
 .tbtn svg{width:13px;height:13px;fill:currentColor;flex-shrink:0}
 .tbtn:disabled{opacity:.35;cursor:not-allowed}
 .tbtn:active:not(:disabled){transform:scale(.97)}
 .t-start{background:var(--grn);border-color:var(--grn);color:#fff}
-.t-stop {background:var(--red);border-color:var(--red);color:#fff}
-.t-mark {background:var(--br);border-color:var(--br);color:#fff}
-.t-mark:disabled{background:var(--bdr);border-color:var(--bdr);color:var(--txt3)}
-.t-reset{background:var(--surf);border-color:var(--bdr);color:var(--txt3)}
-
-/* LAP COUNT BADGE */
-.lap-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;
-  background:var(--surf);border-radius:20px;padding:3px 9px;color:var(--txt3);
-  border:.5px solid var(--bdr)}
+.t-stop{background:var(--red);border-color:var(--red);color:#fff}
+.t-mark{background:var(--br);border-color:var(--br);color:#fff}
+.lap-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;background:var(--surf);
+  border-radius:20px;padding:3px 9px;color:var(--txt3);border:.5px solid var(--bdr)}
 .lap-badge strong{color:var(--br);font-size:12px}
-
 /* HEAD INPUTS */
 .hig{display:grid;grid-template-columns:1fr 20px 1fr;gap:6px;align-items:end}
-.hig .sep{display:flex;align-items:flex-end;justify-content:center;
-  padding-bottom:11px;color:var(--txt3);font-size:16px}
-.ig label{display:block;font-size:11px;font-weight:600;color:var(--txt3);
-  text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-
+.hig .sep{display:flex;align-items:flex-end;justify-content:center;padding-bottom:11px;color:var(--txt3);font-size:16px}
+.ig label{display:block;font-size:11px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
 /* TIME FIELDS */
-.tr2{display:flex;align-items:center;gap:6px}
+.tr2{display:flex;align-items:center;gap:4px}
 .tf{display:flex;flex-direction:column;align-items:center;gap:2px}
-.tf input{width:56px;font-size:20px;font-weight:600;text-align:center;
-  padding:7px 4px;letter-spacing:1px;font-variant-numeric:tabular-nums}
+.tf input{width:56px;font-size:20px;font-weight:600;text-align:center;padding:7px 4px;
+  letter-spacing:1px;font-variant-numeric:tabular-nums}
 .tf span{font-size:10px;color:var(--txt3);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
 .tc{font-size:22px;font-weight:700;color:var(--txt3);margin-bottom:14px}
-
 /* GPS */
 .gps-row{display:flex;align-items:center;gap:10px}
 .gps-dot{width:9px;height:9px;border-radius:50%;background:var(--br-pale);flex-shrink:0;transition:background var(--tr)}
@@ -137,84 +97,88 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
 .gps-info{flex:1;min-width:0}
 .gps-lbl{font-size:14px;color:var(--txt2)}
-.gps-coord{font-size:11px;color:var(--txt3);margin-top:1px;font-variant-numeric:tabular-nums;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.btn-gps{border:1.5px solid var(--br);background:transparent;color:var(--br);
-  border-radius:20px;padding:6px 13px;font-size:12px;font-weight:700;cursor:pointer;
-  transition:all var(--tr);white-space:nowrap;font-family:inherit;flex-shrink:0}
+.gps-coord{font-size:11px;color:var(--txt3);margin-top:1px;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.btn-gps{border:1.5px solid var(--br);background:transparent;color:var(--br);border-radius:20px;padding:6px 13px;
+  font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;flex-shrink:0}
 .btn-gps:hover{background:var(--br);color:#fff}
-
 /* COMPUTED */
-.comp{display:flex;align-items:center;gap:10px;padding:9px 11px;
-  background:var(--grn-bg);border-radius:var(--rs);border:.5px solid rgba(30,110,66,.2)}
+.comp{display:flex;align-items:center;gap:10px;padding:9px 11px;background:var(--grn-bg);
+  border-radius:var(--rs);border:.5px solid rgba(30,110,66,.2)}
 .comp.hide{display:none}
 .comp-stats{flex:1;display:flex;flex-direction:column;gap:3px}
 .cs{display:flex;gap:5px;align-items:baseline;font-size:12px}
 .cs-lbl{color:var(--txt3)}.cs-val{font-variant-numeric:tabular-nums;font-weight:600;color:var(--grn)}
 .ok-ico svg{width:18px;height:18px;fill:var(--grn)}
-
 /* VALIDATION */
-.verr{display:flex;align-items:flex-start;gap:7px;padding:8px 11px;
-  background:var(--red-bg);border-radius:var(--rs);border-left:3px solid var(--red);
-  font-size:13px;color:var(--red)}
-.verr.hide{display:none}
+.verr{display:flex;align-items:flex-start;gap:7px;padding:8px 11px;background:var(--red-bg);
+  border-radius:var(--rs);border-left:3px solid var(--red);font-size:13px;color:var(--red)}
 .verr svg{width:14px;height:14px;fill:var(--red);flex-shrink:0;margin-top:1px}
-
-/* PRIMARY BUTTON */
-.btn-main{width:100%;padding:12px;background:var(--br);color:#fff;border:none;
-  border-radius:var(--rs);font-size:15px;font-weight:700;cursor:pointer;
-  transition:all var(--tr);display:flex;align-items:center;justify-content:center;
-  gap:8px;font-family:inherit}
+/* BUTTONS */
+.btn-main{width:100%;padding:12px;background:var(--br);color:#fff;border:none;border-radius:var(--rs);
+  font-size:15px;font-weight:700;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;
+  justify-content:center;gap:8px;font-family:inherit}
 .btn-main:hover:not(:disabled){background:var(--br-mid)}
 .btn-main:active:not(:disabled){transform:scale(.98)}
 .btn-main:disabled{background:var(--br-ghost);color:var(--br-pale);cursor:not-allowed}
 .btn-main svg{width:16px;height:16px;fill:currentColor}
 .btn-main.grn{background:var(--grn)}.btn-main.grn:hover:not(:disabled){background:#155934}
-
-/* ── DROP PREVIEW ── */
-.drop-box{background:var(--surf2);border-radius:var(--rs);border:.5px solid var(--bdr-lt);
-  padding:10px 12px;display:flex;flex-direction:column;gap:5px}
+/* DROP PREVIEW */
+.drop-box{background:var(--surf2);border-radius:var(--rs);border:.5px solid var(--bdr-lt);padding:10px 12px;display:flex;flex-direction:column;gap:5px}
 .db-row{display:flex;align-items:center;gap:8px;font-size:13px}
 .db-lbl{color:var(--txt3);min-width:80px;font-size:12px}
 .db-val{font-variant-numeric:tabular-nums;font-weight:700}
-.db-arrow{color:var(--txt3);font-size:12px}
 .db-note{font-size:11px;color:var(--txt3);margin-top:2px}
-
-/* ── COUNTDOWN ── */
-.ctd-wrap{background:var(--surf2);border-radius:var(--rs);border:.5px solid var(--bdr-lt);
-  padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+/* INTERVAL QUEUE */
+.iq-wrap{background:var(--surf2);border-radius:var(--rs);border:.5px solid var(--bdr-lt);overflow:hidden}
+.iq-header{padding:8px 12px;font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.5px;color:var(--txt3);border-bottom:.5px solid var(--bdr-lt);
+  display:flex;justify-content:space-between;align-items:center}
+.iq-add{display:flex;align-items:center;gap:6px;padding:10px 12px;border-bottom:.5px solid var(--bdr-lt)}
+.iq-add .tr2{flex:1}
+.iq-add .tf input{width:50px;font-size:18px;padding:6px 3px}
+.btn-add-int{border:none;background:var(--br);color:#fff;border-radius:var(--rs);padding:9px 14px;
+  font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0}
+.btn-add-int:hover{background:var(--br-mid)}
+.iq-list{display:flex;flex-direction:column}
+.iq-empty{padding:12px;text-align:center;font-size:13px;color:var(--txt3);font-style:italic}
+.iq-row{display:flex;align-items:center;padding:8px 12px;border-bottom:.5px solid var(--bdr-lt);gap:8px}
+.iq-row:last-child{border-bottom:none}
+.iq-num{width:22px;height:22px;border-radius:50%;background:var(--br-ghost);display:flex;align-items:center;
+  justify-content:center;font-size:10px;font-weight:700;color:var(--br);flex-shrink:0}
+.iq-row.done .iq-num{background:var(--grn-bg)}
+.iq-row.done .iq-num svg{width:11px;height:11px;fill:var(--grn)}
+.iq-row.active .iq-num{background:var(--org-bg)}
+.iq-t{flex:1;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--txt)}
+.iq-row.done .iq-t{color:var(--txt3);text-decoration:line-through}
+.iq-row.active .iq-t{color:var(--org)}
+.iq-del{border:none;background:transparent;color:var(--red);width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer}
+.iq-del svg{width:12px;height:12px;fill:var(--red)}
+.iq-del:disabled{opacity:.25;cursor:not-allowed}
+/* COUNTDOWN */
+.ctd-wrap{background:var(--surf2);border-radius:var(--rs);border:.5px solid var(--bdr-lt);padding:10px 12px;display:flex;flex-direction:column;gap:6px}
 .ctd-row{display:flex;justify-content:space-between;align-items:center}
 .ctd-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--txt3)}
-.ctd-time{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--br);
+.ctd-time{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--br);
   font-family:'Menlo','Consolas',monospace,system-ui}
 .ctd-time.warn{color:var(--org)}.ctd-time.alert{color:var(--red)}
 .ctd-track{height:7px;background:var(--bdr-lt);border-radius:4px;overflow:hidden}
-.ctd-fill{height:100%;background:var(--br-lt);border-radius:4px;
-  transition:width .1s linear,background .5s}
+.ctd-fill{height:100%;background:var(--br-lt);border-radius:4px;transition:background .5s}
 .ctd-fill.warn{background:var(--org)}.ctd-fill.alert{background:var(--red)}
-
-/* ── H1 PROMPT (time mode) ── */
-.h1-prompt{background:var(--org-bg);border-radius:var(--rs);border:1.5px solid rgba(184,107,16,.3);
-  padding:12px;display:flex;flex-direction:column;gap:10px}
-.h1-prompt-title{font-size:13px;font-weight:700;color:var(--org);
-  display:flex;align-items:center;gap:6px}
+/* H1 PROMPT */
+.h1-prompt{background:var(--org-bg);border-radius:var(--rs);border:1.5px solid rgba(184,107,16,.3);padding:12px;display:flex;flex-direction:column;gap:10px}
+.h1-prompt-title{font-size:13px;font-weight:700;color:var(--org);display:flex;align-items:center;gap:6px}
 .h1-prompt-title svg{width:15px;height:15px;fill:var(--org);flex-shrink:0}
 @keyframes flashAlert{0%,100%{background:var(--org-bg)}50%{background:#FDDBA0}}
 .h1-prompt.flash{animation:flashAlert .45s ease 4}
-
-/* HINT BOX */
-.hint{font-size:12px;color:var(--txt3);padding:7px 10px;background:var(--surf2);
-  border-radius:var(--rs);border-left:3px solid var(--bdr);line-height:1.5}
+/* HINT */
+.hint{font-size:12px;color:var(--txt3);padding:7px 10px;background:var(--surf2);border-radius:var(--rs);border-left:3px solid var(--bdr);line-height:1.5}
 .hint strong{color:var(--br-mid)}
-
-/* STEP ROWS */
-.s-row{display:flex;align-items:center;gap:9px;padding:9px 14px;
-  border-bottom:.5px solid var(--bdr-lt);animation:si .22s ease}
+/* STEPS */
+.s-row{display:flex;align-items:center;gap:9px;padding:9px 14px;border-bottom:.5px solid var(--bdr-lt);animation:si .22s ease}
 .s-row:last-child{border-bottom:none}
 @keyframes si{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.s-badge{width:28px;height:28px;border-radius:50%;background:var(--br-ghost);
-  display:flex;align-items:center;justify-content:center;font-size:11px;
-  font-weight:700;color:var(--br);flex-shrink:0}
+.s-badge{width:28px;height:28px;border-radius:50%;background:var(--br-ghost);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--br);flex-shrink:0}
 .s-info{flex:1;min-width:0}
 .s-heads{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--txt2)}
 .s-hv{font-variant-numeric:tabular-nums}
@@ -224,14 +188,11 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
 .s-kdot svg{width:9px;height:9px;fill:#1a7fcf}
 .s-kval{font-variant-numeric:tabular-nums;font-weight:700;font-size:13px;letter-spacing:.3px}
 .s-ku{font-size:11px;color:var(--txt3)}
-.s-mode{font-size:9.5px;color:var(--txt3);background:var(--br-ghost);
-  padding:1px 5px;border-radius:3px;margin-left:4px}
-.btn-del{border:none;background:transparent;color:var(--red);width:30px;height:30px;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:13px;flex-shrink:0;transition:background var(--tr)}
+.s-mode{font-size:9.5px;color:var(--txt3);background:var(--br-ghost);padding:1px 5px;border-radius:3px;margin-left:4px}
+.btn-del{border:none;background:transparent;color:var(--red);width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer}
 .btn-del:hover{background:var(--red-bg)}
 .btn-del svg{width:12px;height:12px;fill:var(--red)}
-
 /* RESULTS */
 .r-row{display:flex;align-items:center;padding:11px 14px;border-bottom:.5px solid var(--bdr-lt);gap:10px}
 .r-row:last-child{border-bottom:none}
@@ -240,40 +201,32 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
 .r-lbl{flex:1;font-size:13.5px;color:var(--txt2)}
 .r-val{font-variant-numeric:tabular-nums;font-weight:700;font-size:14px;color:var(--br)}
 .k-chip{font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:20px}
-
 /* ACTIONS */
-.act-btn{display:flex;align-items:center;gap:12px;padding:13px 14px;border:none;
-  background:transparent;color:var(--txt);font-size:15px;cursor:pointer;
-  border-bottom:.5px solid var(--bdr-lt);transition:background var(--tr);
-  font-family:inherit;width:100%;text-align:left}
+.act-btn{display:flex;align-items:center;gap:12px;padding:13px 14px;border:none;background:transparent;
+  color:var(--txt);font-size:15px;cursor:pointer;border-bottom:.5px solid var(--bdr-lt);
+  transition:background var(--tr);font-family:inherit;width:100%;text-align:left}
 .act-btn:last-child{border-bottom:none}
 .act-btn:hover{background:var(--bg)}
 .act-btn svg{width:17px;height:17px;fill:currentColor;flex-shrink:0}
-.act-primary svg,.act-primary{color:var(--br)}
+.act-primary,.act-primary svg{color:var(--br)}
 .act-danger,.act-danger svg{color:var(--red)}
-
 /* TOAST */
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(90px);
-  background:#2C1A08;color:#fff;padding:11px 20px;border-radius:24px;font-size:14px;
-  font-weight:600;display:flex;align-items:center;gap:8px;
-  box-shadow:0 6px 24px rgba(0,0,0,.25);z-index:1000;pointer-events:none;
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(90px);background:#2C1A08;
+  color:#fff;padding:11px 20px;border-radius:24px;font-size:14px;font-weight:600;display:flex;
+  align-items:center;gap:8px;box-shadow:0 6px 24px rgba(0,0,0,.25);z-index:1000;pointer-events:none;
   transition:transform .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast-ok svg{width:14px;height:14px;fill:#5ECD8A}
-
 /* MODAL */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:200;
-  display:flex;align-items:center;justify-content:center;padding:20px;
-  opacity:0;pointer-events:none;transition:opacity .18s}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:200;display:flex;align-items:center;
+  justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .18s}
 .overlay.show{opacity:1;pointer-events:all}
-.modal{background:#fff;border-radius:14px;padding:22px;max-width:300px;width:100%;
-  transform:scale(.9);transition:transform .18s}
+.modal{background:#fff;border-radius:14px;padding:22px;max-width:300px;width:100%;transform:scale(.9);transition:transform .18s}
 .overlay.show .modal{transform:scale(1)}
 .modal h3{font-size:17px;font-weight:700;margin-bottom:8px}
 .modal p{font-size:13.5px;color:var(--txt2);line-height:1.55;margin-bottom:18px}
 .modal-acts{display:flex;gap:9px}
-.modal-acts button{flex:1;padding:11px;border-radius:var(--rs);font-size:14px;
-  font-weight:600;cursor:pointer;border:none;font-family:inherit}
+.modal-acts button{flex:1;padding:11px;border-radius:var(--rs);font-size:14px;font-weight:600;cursor:pointer;border:none;font-family:inherit}
 .btn-cancel{background:var(--bg);color:var(--txt)}.btn-confirm{background:var(--red);color:#fff}
 .hide{display:none!important}
 </style>
@@ -281,10 +234,7 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
 <body>
 
 <header class="hdr">
-  <div>
-    <h1>K-Field-Hydraulic</h1>
-    <p>Permeabilità in sito · Lefranc / Hvorslev</p>
-  </div>
+  <div><h1>K-Field-Hydraulic</h1><p>Permeabilità in sito · Lefranc / Hvorslev</p></div>
   <button class="btn-ico" id="btnReset">
     <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
   </button>
@@ -292,7 +242,7 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
 
 <div class="wrap">
 
-<!-- 1. IDENTIFICATION -->
+<!-- IDENTIFICATION -->
 <div class="card">
   <div class="ch">
     <div class="ch-ico"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
@@ -301,8 +251,7 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
   <div class="cb">
     <div class="fr">
       <div class="f-ico"><svg viewBox="0 0 24 24"><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5H5c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h11c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></svg></div>
-      <input type="text" id="spotName" placeholder="Sigla / Nome spot (es. S1-PZ01)"
-             autocomplete="off" autocorrect="off" style="text-transform:uppercase">
+      <input type="text" id="spotName" placeholder="Sigla / Nome spot (es. S1-PZ01)" autocomplete="off" style="text-transform:uppercase">
     </div>
     <div class="fr">
       <div class="f-ico"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div>
@@ -319,7 +268,7 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
   </div>
 </div>
 
-<!-- 2. GEOMETRY -->
+<!-- GEOMETRY -->
 <div class="card">
   <div class="ch">
     <div class="ch-ico"><svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2zm0 3.84L14.93 10H9.06L12 5.84zM17.5 13c-2.49 0-4.5 2.01-4.5 4.5S15.01 22 17.5 22s4.5-2.01 4.5-4.5S19.99 13 17.5 13zm0 7c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM3 21.5h8v-8H3v8zm2-6h4v4H5v-4z"/></svg></div>
@@ -347,10 +296,10 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
       <div class="ok-ico"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
     </div>
   </div>
-  <div class="cf">Circolare: <code>F = 5.5·r</code>.&nbsp; Quadrata: <code>r_eq = a/√π → F = 5.5·r_eq</code></div>
+  <div class="cf">Circolare: <code>F = 5.5·r</code> (Hvorslev, 1951).&nbsp; Quadrata: <code>r_eq = a/√π → F = 5.5·r_eq</code></div>
 </div>
 
-<!-- 3. ACQUISITION -->
+<!-- ACQUISITION -->
 <div class="card">
   <div class="ch">
     <div class="ch-ico"><svg viewBox="0 0 24 24"><path d="M21 6.5l-4-4-8.5 8.5-2 4.5 4.5-2L21 6.5z"/></svg></div>
@@ -360,27 +309,40 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
 
     <!-- MODE TABS -->
     <div class="mtabs">
-      <button class="mtab on" id="tab_manual" onclick="setMode('manual')">
-        Manuale<small>h₀,h₁,Δt liberi</small>
-      </button>
-      <button class="mtab" id="tab_drop" onclick="setMode('drop')">
-        Abb. Δh fisso<small>Δh costante, Δt mis.</small>
-      </button>
-      <button class="mtab" id="tab_time" onclick="setMode('time')">
-        Tempi Δt fissi<small>Δt costante, h mis.</small>
-      </button>
+      <button class="mtab on" id="tab_manual" onclick="setMode('manual')">Manuale<small>h₀,h₁,Δt liberi</small></button>
+      <button class="mtab" id="tab_drop" onclick="setMode('drop')">Δh fisso<small>tacche, Δt mis.</small></button>
+      <button class="mtab" id="tab_time" onclick="setMode('time')">Δt programmati<small>h mis. a scadenza</small></button>
     </div>
 
-    <!-- ── TIMER WIDGET (all modes) ── -->
+          <!-- h_ref offset field -->
+      <div style="background:var(--surf2);border-radius:var(--rs);border:.5px solid var(--bdr-lt);padding:10px 12px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--txt3)">
+          Riferimento quota acqua
+        </div>
+        <div class="fr">
+          <div class="f-ico"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
+          <span class="f-lbl" style="font-size:13px">h_ref — altezza acqua reale sul fondo (m)</span>
+          <input type="text" id="hRef" inputmode="decimal" placeholder="opzionale"
+                 class="i-right i-short" autocomplete="off">
+        </div>
+        <div id="hRefHint" style="font-size:11.5px;color:var(--txt3);line-height:1.5">
+          Lascia vuoto se inserisci teste assolute (h₀ &gt; 0).<br>
+          <strong>Se usi un'asta con 0 al pelo libero</strong>: inserisci qui la profondità reale
+          dell'acqua sopra il fondo del pozzetto — poi leggi gli abbassamenti normalmente a partire da h₀ = 0.
+        </div>
+        <div id="hRefBadge" class="hide" style="font-size:12px;font-weight:600;color:var(--grn);background:var(--grn-bg);padding:5px 10px;border-radius:var(--rs)">
+          Formula attiva: k = (A/F) × (1/Δt) × ln( (h_ref − h₀) / (h_ref − h₁) )
+        </div>
+      </div>
+
+      <!-- TIMER WIDGET (tutte le modalità) -->
     <div class="tbox">
       <div class="t-top">
         <div>
           <div class="tnum" id="tDisp">00:00.0</div>
           <div class="tstatus" id="tStat">Pronto</div>
         </div>
-        <div id="lapBadge" class="lap-badge hide">
-          Lap <strong id="lapNum">0</strong>
-        </div>
+        <div id="lapBadge" class="lap-badge hide">Lap <strong id="lapNum">0</strong></div>
       </div>
       <div class="tbrow">
         <button class="tbtn t-start" id="btnSS" onclick="toggleTimer()">
@@ -389,28 +351,25 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
         <button class="tbtn t-mark hide" id="btnMark" onclick="handleMark()" disabled>
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></svg>Segna
         </button>
-        <button class="tbtn t-reset" onclick="tReset()" title="Reset">
+        <button class="tbtn" onclick="tReset()" title="Reset">
           <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
         </button>
       </div>
     </div>
 
-    <!-- ════ PANEL: MANUALE ════ -->
+    <!-- ══ PANEL MANUALE ══ -->
     <div id="pan_manual">
       <div class="hig">
-        <div class="ig">
-          <label>h₀ — iniziale (m)</label>
-          <input type="text" id="h0" inputmode="decimal" placeholder="0.000" autocomplete="off">
-        </div>
+        <div class="ig"><label>h₀ — iniziale (m)</label>
+          <input type="text" id="h0" inputmode="decimal" placeholder="0.000" autocomplete="off"></div>
         <div class="sep">→</div>
-        <div class="ig">
-          <label>h₁ — finale (m)</label>
-          <input type="text" id="h1" inputmode="decimal" placeholder="0.000" autocomplete="off">
-        </div>
+        <div class="ig"><label>h₁ — finale (m)</label>
+          <input type="text" id="h1" inputmode="decimal" placeholder="0.000" autocomplete="off"></div>
       </div>
       <div class="fr" style="gap:8px">
         <div class="f-ico"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div>
         <span class="f-lbl" style="font-size:13px;color:var(--txt3)">Δt — auto dal cronometro, oppure manuale</span>
+        <span id="dtAutoLabel" class="hide" style="font-size:11px;background:var(--grn-bg);color:var(--grn);padding:3px 8px;border-radius:12px;font-weight:700;flex-shrink:0">● dal timer</span>
       </div>
       <div style="display:flex;align-items:center;gap:8px">
         <div class="tr2">
@@ -418,87 +377,74 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
           <div class="tc">:</div>
           <div class="tf"><input type="text" id="secs" inputmode="numeric" value="0" maxlength="2" class="i-center"><span>sec</span></div>
         </div>
-        <span id="dtAutoLabel" class="hide" style="font-size:11px;background:var(--grn-bg);color:var(--grn);padding:3px 8px;border-radius:12px;font-weight:700;flex-shrink:0">● dal timer</span>
       </div>
-      <div class="verr hide" id="verr">
-        <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
-        <span id="verrMsg"></span>
-      </div>
+      <div class="verr hide" id="verr"><svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg><span id="verrMsg"></span></div>
       <button class="btn-main" id="btnAdd" disabled onclick="addManual()">
         <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Aggiungi Lettura
       </button>
     </div>
 
-    <!-- ════ PANEL: ABBASSAMENTO Δh FISSO ════ -->
+    <!-- ══ PANEL Δh FISSO ══ -->
     <div id="pan_drop" class="hide">
       <div class="hig">
-        <div class="ig">
-          <label>h₀ iniziale (m)</label>
-          <input type="text" id="dcH0" inputmode="decimal" placeholder="0.500" autocomplete="off">
-        </div>
+        <div class="ig"><label>h₀ iniziale (m)</label>
+          <input type="text" id="dcH0" inputmode="decimal" placeholder="0.500" autocomplete="off"></div>
         <div class="sep" style="padding-bottom:10px;font-size:13px;color:var(--txt3)">e</div>
-        <div class="ig">
-          <label>Δh per lettura (m)</label>
-          <input type="text" id="dcDh" inputmode="decimal" placeholder="0.050" autocomplete="off">
-        </div>
+        <div class="ig"><label>Δh per lettura (m)</label>
+          <input type="text" id="dcDh" inputmode="decimal" placeholder="0.050" autocomplete="off"></div>
       </div>
-
-      <!-- Live drop preview -->
       <div class="drop-box" id="dropBox">
-        <div class="db-note">Avvia il cronometro e premi <strong>Segna</strong> ad ogni tacca.</div>
+        <div class="db-note">Imposta h₀ e Δh, avvia il cronometro e premi <strong>Segna</strong> ad ogni tacca.</div>
       </div>
-
-      <div class="verr hide" id="verrDc">
-        <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
-        <span id="verrDcMsg"></span>
-      </div>
-      <div class="hint">
-        Ogni pressione di <strong>Segna</strong> registra automaticamente il tempo trascorso e
-        aggiunge la lettura. Il cronometro riparte dal prossimo intervallo.
-      </div>
+      <div class="verr hide" id="verrDc"><svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg><span id="verrDcMsg"></span></div>
+      <div class="hint">Ogni <strong>Segna</strong> registra il Δt trascorso dall'ultimo segno e aggiunge automaticamente la lettura. Il cronometro riparte immediatamente.</div>
     </div>
 
-    <!-- ════ PANEL: TEMPI Δt FISSI ════ -->
+    <!-- ══ PANEL Δt PROGRAMMATI ══ -->
     <div id="pan_time" class="hide">
-      <div class="hig">
-        <div class="ig">
-          <label>h₀ iniziale (m)</label>
-          <input type="text" id="tcH0" inputmode="decimal" placeholder="0.500" autocomplete="off">
+      <div class="ig" style="margin-bottom:2px">
+        <label>h₀ — livello iniziale (m)</label>
+        <input type="text" id="tcH0" inputmode="decimal" placeholder="0.000" autocomplete="off">
+      </div>
+
+      <!-- Queue builder -->
+      <div class="iq-wrap">
+        <div class="iq-header">
+          <span>Intervalli programmati</span>
+          <span id="iqSummary" style="font-weight:400;font-size:11px"></span>
         </div>
-        <div class="sep" style="padding-bottom:10px;font-size:13px;color:var(--txt3)">e</div>
-        <div class="ig">
-          <label>Δt intervallo</label>
-          <div class="tr2" style="justify-content:flex-end">
-            <div class="tf"><input type="text" id="tcMins" inputmode="numeric" value="2" maxlength="3" class="i-center"><span>min</span></div>
-            <div class="tc" style="margin-bottom:14px">:</div>
-            <div class="tf"><input type="text" id="tcSecs" inputmode="numeric" value="0" maxlength="2" class="i-center"><span>sec</span></div>
+        <div class="iq-add">
+          <div class="tr2" style="flex:1">
+            <div class="tf"><input type="text" id="iqMins" inputmode="numeric" value="2" maxlength="3" class="i-center"><span>min</span></div>
+            <div class="tc" style="margin-bottom:14px;margin-left:2px;margin-right:2px">:</div>
+            <div class="tf"><input type="text" id="iqSecs" inputmode="numeric" value="0" maxlength="2" class="i-center"><span>sec</span></div>
           </div>
+          <button class="btn-add-int" onclick="addInterval()">+ Aggiungi</button>
+        </div>
+        <div class="iq-list" id="iqList">
+          <div class="iq-empty" id="iqEmpty">Nessun intervallo aggiunto</div>
         </div>
       </div>
 
-      <!-- Countdown bar (visible when running) -->
+      <!-- Countdown (visible when running) -->
       <div class="ctd-wrap hide" id="ctdWrap">
         <div class="ctd-row">
-          <span class="ctd-lbl">Prossima lettura tra</span>
-          <span class="ctd-time" id="ctdDisp">02:00</span>
+          <span class="ctd-lbl" id="ctdLabel">Prossima lettura tra</span>
+          <span class="ctd-time" id="ctdDisp">00:00</span>
         </div>
-        <div class="ctd-track">
-          <div class="ctd-fill" id="ctdFill" style="width:0%"></div>
-        </div>
+        <div class="ctd-track"><div class="ctd-fill" id="ctdFill" style="width:0%"></div></div>
       </div>
 
-      <!-- H1 input prompt (appears at each interval) -->
+      <!-- H1 prompt (flashes at each interval) -->
       <div class="h1-prompt hide" id="h1Prompt">
         <div class="h1-prompt-title">
           <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
-          Intervallo completato — inserisci il livello attuale
+          Intervallo <span id="h1PromptIdx">1</span> completato — inserisci il livello
         </div>
         <div class="hig">
           <div class="ig">
             <label>h precedente (m)</label>
-            <div style="padding:8px 10px;background:var(--bg);border-radius:var(--rs);
-              font-variant-numeric:tabular-nums;font-size:15px;color:var(--txt2);
-              border:1.5px solid var(--bdr-lt)" id="tcH0Disp">–</div>
+            <div style="padding:8px 10px;background:var(--bg);border-radius:var(--rs);font-variant-numeric:tabular-nums;font-size:15px;color:var(--txt2);border:1.5px solid var(--bdr-lt)" id="tcH0Disp">–</div>
           </div>
           <div class="sep">→</div>
           <div class="ig">
@@ -507,26 +453,19 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
           </div>
         </div>
         <button class="btn-main grn" onclick="registerTimeStep()">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-          Registra Lettura
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Registra Lettura
         </button>
       </div>
 
-      <div class="verr hide" id="verrTc">
-        <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
-        <span id="verrTcMsg"></span>
-      </div>
-      <div class="hint">
-        Il cronometro segna il conto alla rovescia. Puoi anche premere <strong>Segna</strong>
-        manualmente per anticipare la lettura. Il tempo effettivo sarà registrato.
-      </div>
+      <div class="verr hide" id="verrTc"><svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg><span id="verrTcMsg"></span></div>
+      <div class="hint">Puoi anche premere <strong>Segna</strong> manualmente per anticipare una lettura. Il tempo effettivo sarà registrato. Al termine di tutti gli intervalli la prova si chiude automaticamente.</div>
     </div>
 
-  </div><!-- /cb -->
-  <div class="cf">h₀: livello idraulico a t=0.&nbsp; h₁: livello a t=Δt.&nbsp; Condizione: h₁ &lt; h₀.</div>
+  </div>
+  <div class="cf">h₀: livello idraulico a t=0.&nbsp; h₁: livello a t=Δt.&nbsp; Condizione necessaria: h₁ &lt; h₀.</div>
 </div>
 
-<!-- 4. STEPS LIST -->
+<!-- STEPS LIST -->
 <div class="card hide" id="cardList">
   <div class="ch">
     <div class="ch-ico"><svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg></div>
@@ -535,7 +474,7 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
   <div id="sList"></div>
 </div>
 
-<!-- 5. RESULTS -->
+<!-- RESULTS -->
 <div class="card">
   <div class="ch">
     <div class="ch-ico"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
@@ -543,13 +482,13 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
   </div>
   <div id="resBody">
     <div class="r-row">
-      <div class="r-ico"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
+      <div class="r-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg></div>
       <span class="r-lbl" style="font-style:italic;color:var(--txt3)">Nessuna lettura disponibile</span>
     </div>
   </div>
 </div>
 
-<!-- 6. ACTIONS -->
+<!-- ACTIONS -->
 <div class="card">
   <div class="ch">
     <div class="ch-ico"><svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></div>
@@ -567,13 +506,12 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
   </div>
 </div>
 <div style="height:16px"></div>
-</div><!-- /wrap -->
+</div>
 
 <div class="toast" id="toast">
   <div class="toast-ok"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
   <span id="toastTxt"></span>
 </div>
-
 <div class="overlay" id="modal">
   <div class="modal">
     <h3>Conferma Reset</h3>
@@ -586,17 +524,21 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
 </div>
 
 <script>
-// ── UTILS ────────────────────────────────────────────────────
-const $=id=>document.getElementById(id);
+// ── UTILS ─────────────────────────────────────────────────────
+const $  = id => document.getElementById(id);
+const pn = s  => { const v = parseFloat((s||'').replace(',','.')); return isNaN(v) ? null : v; };
+const fmt = s => `${String(Math.floor(s/60)).padStart(2,'0')}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+const fmtMs = ms => { const t=ms/1000; return fmt(t)+'.'+Math.floor((ms%1000)/100); };
+const fmtK  = k  => k.toExponential(3);
 
-// ── STATE ────────────────────────────────────────────────────
+// ── STATE ─────────────────────────────────────────────────────
 const S = {
-  geo:'circular', steps:[], n:0, coords:null,
-  mode:'manual',              // 'manual' | 'drop' | 'time'
-  acq:{ hCurr:null, dtSecs:0, awaitInput:false, lapMs:0 }
+  geo:'circular', steps:[], n:0, coords:null, mode:'manual',
+  acq:{ hCurr:null, awaitInput:false },
+  tcQueue:[], tcQueueIdx:-1, tcIntervalStart:0
 };
 
-// ── TIMER ────────────────────────────────────────────────────
+// ── TIMER ─────────────────────────────────────────────────────
 const T = { running:false, id:null, lapStart:0, savedMs:0, lapCount:0 };
 
 const tElapsed = () => T.savedMs + (T.running ? Date.now()-T.lapStart : 0);
@@ -604,97 +546,69 @@ const tElapsed = () => T.savedMs + (T.running ? Date.now()-T.lapStart : 0);
 function tStart(){
   if(T.running) return;
   T.lapStart = Date.now();
-  T.running = true;
+  T.running  = true;
   T.id = setInterval(tTick, 80);
   updTUI();
-  // Show countdown for time mode
-  if(S.mode==='time') $('ctdWrap').classList.remove('hide');
 }
-
 function tStop(){
   if(!T.running) return;
   T.savedMs = tElapsed();
-  clearInterval(T.id);
-  T.running = false;
-  tTick();
-  updTUI();
+  clearInterval(T.id); T.running = false;
+  tTick(); updTUI();
   if(S.mode==='manual'){
-    // Auto-fill Δt fields
-    const ms = T.savedMs;
-    $('mins').value = Math.floor(ms/60000);
-    $('secs').value = Math.floor((ms%60000)/1000);
+    $('mins').value = Math.floor(T.savedMs/60000);
+    $('secs').value = Math.floor((T.savedMs%60000)/1000);
     $('dtAutoLabel').classList.remove('hide');
-    updBtn();
+    updBtnManual();
   }
 }
-
+// Mark: captures current lap ms, resets for next lap, returns ms
 function tMark(){
-  // Captures current lap, resets for next lap, returns ms
   const ms = tElapsed();
-  T.savedMs = 0;
-  T.lapCount++;
+  T.savedMs = 0; T.lapCount++;
   if(T.running) T.lapStart = Date.now();
   else tTick();
   $('lapNum').textContent = T.lapCount;
   $('lapBadge').classList.remove('hide');
   return ms;
 }
-
 function tReset(){
-  clearInterval(T.id);
-  T.running = false;
-  T.savedMs = 0;
-  T.lapCount = 0;
-  S.acq.hCurr = null;
-  S.acq.awaitInput = false;
-  S.acq.lapMs = 0;
-  tTick();
-  updTUI();
+  clearInterval(T.id); T.running=false; T.savedMs=0; T.lapCount=0;
+  S.acq.hCurr=null; S.acq.awaitInput=false;
+  S.tcQueueIdx=-1; S.tcIntervalStart=0;
+  tTick(); updTUI();
   $('lapBadge').classList.add('hide');
   $('ctdWrap').classList.add('hide');
   $('h1Prompt').classList.add('hide');
   resetDropBox();
+  renderIQ();  // re-render to clear done/active classes
   if(S.mode==='manual'){
-    $('mins').value='0';$('secs').value='0';
+    $('mins').value='0'; $('secs').value='0';
     $('dtAutoLabel').classList.add('hide');
-    updBtn();
+    updBtnManual();
   }
 }
-
+function toggleTimer(){
+  // Δt programmati: start initialises the first countdown
+  if(!T.running && S.mode==='time'){
+    if(!startTimeModeRun()) return;
+  } else {
+    T.running ? tStop() : tStart();
+  }
+}
 function tTick(){
+  // Update main display
   const ms = tElapsed();
-  const m = String(Math.floor(ms/60000)).padStart(2,'0');
-  const s = String(Math.floor((ms%60000)/1000)).padStart(2,'0');
-  const d = Math.floor((ms%1000)/100);
-  $('tDisp').textContent = `${m}:${s}.${d}`;
+  $('tDisp').textContent = fmtMs(ms);
 
-  // Drop mode: update live preview
+  // Drop: update preview
   if(S.mode==='drop' && T.running) updDropBox(ms);
 
-  // Time mode: countdown
-  if(S.mode==='time' && T.running && !S.acq.awaitInput){
-    const dtMs = S.acq.dtSecs * 1000;
-    if(dtMs > 0){
-      const prog = Math.min(ms/dtMs, 1);
-      const fill = $('ctdFill');
-      fill.style.width = (prog*100)+'%';
-      // Color ramp
-      fill.className = 'ctd-fill' + (prog>.85?' alert':prog>.6?' warn':'');
-      const rem = Math.max(0, dtMs-ms);
-      const rm = String(Math.floor(rem/60000)).padStart(2,'0');
-      const rs = String(Math.floor((rem%60000)/1000)).padStart(2,'0');
-      const ctd = $('ctdDisp');
-      ctd.textContent = `${rm}:${rs}`;
-      ctd.className = 'ctd-time'+(prog>.85?' alert':prog>.6?' warn':'');
-      if(ms >= dtMs) triggerInterval();
-    }
+  // Time: countdown per interval
+  if(S.mode==='time' && T.running && !S.acq.awaitInput && S.tcQueueIdx>=0){
+    tickCountdown();
   }
 }
-
-function toggleTimer(){
-  T.running ? tStop() : tStart();
-}
-
 function updTUI(){
   const ss=$('btnSS'), mk=$('btnMark'), st=$('tStat'), nd=$('tDisp');
   if(T.running){
@@ -706,32 +620,26 @@ function updTUI(){
   } else {
     ss.innerHTML='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Start';
     ss.className='tbtn t-start';
-    mk.disabled = true; mk.className='tbtn t-mark';
-    st.textContent = T.savedMs>0 ? 'Fermato' : 'Pronto';
-    st.className = T.savedMs>0 ? 'tstatus paused' : 'tstatus';
-    nd.className = T.savedMs>0 ? 'tnum done' : 'tnum';
+    mk.disabled=true; mk.className='tbtn t-mark';
+    st.textContent = T.savedMs>0?'Fermato':'Pronto';
+    st.className   = T.savedMs>0?'tstatus paused':'tstatus';
+    nd.className   = T.savedMs>0?'tnum done':'tnum';
   }
+}
+function handleMark(){
+  if(S.mode==='drop') markDrop();
+  else if(S.mode==='time') triggerTimeInterval(true);
 }
 
 // ── MODE SWITCH ───────────────────────────────────────────────
 function setMode(m){
-  S.mode = m;
+  S.mode=m;
   ['manual','drop','time'].forEach(id=>{
     $(`tab_${id}`).classList.toggle('on', id===m);
     $(`pan_${id}`).classList.toggle('hide', id!==m);
   });
-  // Show/hide Segna button
   $('btnMark').classList.toggle('hide', m==='manual');
-  tReset();
-  clearAllErr();
-}
-
-// ── handleMark (dispatches by mode) ──────────────────────────
-function handleMark(){
-  switch(S.mode){
-    case 'drop': markDrop(); break;
-    case 'time': triggerInterval(); break;
-  }
+  tReset(); clearAllErr();
 }
 
 // ────────────────────────────────────────────────────────────
@@ -741,153 +649,262 @@ function addManual(){
   clearAllErr();
   const h0=pn($('h0').value), h1=pn($('h1').value);
   const dt=(parseFloat($('mins').value)||0)*60+(parseFloat($('secs').value)||0);
-  if(!h0||h0<=0) return verr('h₀ deve essere > 0.');
-  if(!h1||h1<=0||h1>=h0) return verr('h₁ deve essere 0 < h₁ < h₀.');
+  const hErr=validateHeads(h0,h1);
+  if(hErr) return verr(hErr);
   if(dt<=0) return verr('Δt deve essere > 0.');
   const d=getDim(); if(!d||d<=0) return verr('Imposta la geometria del pozzetto.');
   const A=calcArea(d,S.geo), F=calcF(d,S.geo);
-  const k=calcK(A,F,dt,h0,h1);
-  pushStep({dt,h0,h1,k,A,F,mode:'M'});
-  $('h0').value='';$('h1').value='';
+  pushStep({dt, h0, h1, k:calcK(A,F,dt,h0,h1), A, F, mode:'M'});
+  $('h0').value=''; $('h1').value='';
   $('dtAutoLabel').classList.add('hide');
-  tReset();
-  updBtn();
+  tReset(); updBtnManual();
+}
+function updBtnManual(){
+  const h0=pn($('h0').value), h1=pn($('h1').value);
+  const dt=(parseFloat($('mins').value)||0)*60+(parseFloat($('secs').value)||0);
+  const d=getDim(), hr=getHRef();
+  let headsOk;
+  if(hr!==null){
+    headsOk = h0!==null && h1!==null && h1>h0 && hr>h0 && hr>h1 && (hr-h0)>(hr-h1);
+  } else {
+    headsOk = h0!==null && h0>0 && h1!==null && h1>0 && h1<h0;
+  }
+  $('btnAdd').disabled=!(d&&d>0&&headsOk&&dt>0);
 }
 
 // ────────────────────────────────────────────────────────────
-// MODE 2 — ABBASSAMENTO Δh FISSO
+// MODE 2 — Δh FISSO
 // ────────────────────────────────────────────────────────────
 function markDrop(){
-  const ms = tMark();
+  clearAllErr();
   const h0i=pn($('dcH0').value), dh=pn($('dcDh').value);
-  if(!h0i||!dh) return verrDc('Imposta h₀ e Δh prima di segnare.');
-  const hCurr = S.acq.hCurr !== null ? S.acq.hCurr : h0i;
-  const hNext = Math.round((hCurr - dh)*1e6)/1e6;
-  if(hNext <= 0) return verrDc(`h₁ = ${hNext.toFixed(3)} m ≤ 0: prova terminata.`);
+  if(h0i===null||dh===null) return verrDc('Imposta h₀ e Δh prima di segnare.');
   const d=getDim(); if(!d||d<=0) return verrDc('Imposta la geometria del pozzetto.');
-  const dtSec=ms/1000;
-  if(dtSec<0.5) return verrDc('Δt troppo breve (< 0.5 s). Riprova.');
+  const hCurr = S.acq.hCurr !== null ? S.acq.hCurr : h0i;
+  const hNext = Math.round((hCurr + dh)*1e6)/1e6;  // gauge increases downward
+  const hr = getHRef();
+  if(hr !== null){
+    if(hr - hNext <= 0) return verrDc('Abbassamento ha raggiunto il fondo (h_ref − hNext ≤ 0): prova completata.');
+  } else {
+    if(hNext <= 0) return verrDc('Livello prossimo ≤ 0 m: prova completata.');
+  }
+  if(!T.running) return verrDc('Avvia il cronometro prima di segnare.');
+  const ms = tElapsed();
+  if(ms/1000<0.5) return verrDc('Δt troppo breve (< 0.5 s). Attendi.');
+  tMark();
   const A=calcArea(d,S.geo), F=calcF(d,S.geo);
-  const k=calcK(A,F,dtSec,hCurr,hNext);
-  pushStep({dt:dtSec,h0:hCurr,h1:hNext,k,A,F,mode:'Δh'});
+  pushStep({dt:ms/1000, h0:hCurr, h1:hNext, k:calcK(A,F,ms/1000,hCurr,hNext), A, F, mode:'Δh'});
   S.acq.hCurr = hNext;
   updDropBox(0);
-  toast(`Lettura ${S.n}: k = ${fmtK(k)} m/s`);
+  toast(`Lettura ${S.n}: k = ${fmtK(S.steps[S.steps.length-1].k)} m/s`);
 }
-
 function updDropBox(curMs){
-  const h0i=pn($('dcH0').value), dh=pn($('dcDh').value);
-  const box=$('dropBox');
-  if(!h0i||!dh){box.innerHTML='<div class="db-note">Imposta h₀ e Δh, poi avvia il cronometro.</div>';return;}
+  const h0i=pn($('dcH0').value), dh=pn($('dcDh').value), box=$('dropBox');
+  if(h0i===null||dh===null){ box.innerHTML='<div class="db-note">Imposta h₀ e Δh, poi avvia il cronometro.</div>'; return; }
   const hCurr = S.acq.hCurr !== null ? S.acq.hCurr : h0i;
-  const hNext = Math.round((hCurr - dh)*1e6)/1e6;
-  const n=S.steps.length+1;
-  const tDisp=curMs>0?`(${(curMs/1000).toFixed(1)} s in corso…)`:'';
+  const hNext = Math.round((hCurr + dh)*1e6)/1e6;
+  const hr=getHRef(), n=S.steps.length+1;
+  const limited = hr!==null ? (hr-hNext)<=0 : hNext<=0;
   box.innerHTML=`
     <div class="db-row">
       <span class="db-lbl">Lettura ${n}</span>
       <span class="db-val">${hCurr.toFixed(3)} m</span>
-      <span class="db-arrow">→</span>
-      <span class="db-val">${Math.max(0,hNext).toFixed(3)} m</span>
-      <span style="color:var(--txt3);font-size:11px">Δh ${dh.toFixed(3)} m</span>
+      <span style="color:var(--txt3);font-size:13px">→</span>
+      <span class="db-val">${hNext.toFixed(3)} m</span>
+      <span style="color:var(--txt3);font-size:11px;margin-left:auto">Δh ${dh.toFixed(3)} m</span>
     </div>
-    ${curMs>0?`<div class="db-note">⏱ ${tDisp}</div>`:''}
-    ${hNext<=0?`<div class="db-note" style="color:var(--red)">⚠ Prossimo h ≤ 0: ultima lettura.</div>`:''}
-  `;
+    ${curMs>0?`<div class="db-note">⏱ ${(curMs/1000).toFixed(1)} s in corso…</div>`:''}
+    ${limited?'<div class="db-note" style="color:var(--red)">⚠ Questa sarà l\'ultima lettura.</div>':''}`;
 }
-
-function resetDropBox(){$('dropBox').innerHTML='<div class="db-note">Avvia il cronometro e premi Segna ad ogni tacca.</div>';}
+function resetDropBox(){ $('dropBox').innerHTML='<div class="db-note">Imposta h₀ e Δh, avvia il cronometro e premi <strong>Segna</strong> ad ogni tacca.</div>'; }
 
 // ────────────────────────────────────────────────────────────
-// MODE 3 — TEMPI Δt FISSI
+// MODE 3 — Δt PROGRAMMATI
 // ────────────────────────────────────────────────────────────
-function getAcqDtSecs(){
-  return (parseFloat($('tcMins').value)||0)*60+(parseFloat($('tcSecs').value)||0);
+
+// --- Interval queue management ---
+function addInterval(){
+  const m=parseInt($('iqMins').value)||0, s2=parseInt($('iqSecs').value)||0;
+  const total=m*60+s2;
+  if(total<1){ toast('Intervallo minimo: 1 secondo'); return; }
+  S.tcQueue.push({id:Date.now(), secs:total});
+  renderIQ();
+}
+function removeInterval(id){
+  if(S.tcQueueIdx>=0){ toast('Prova in corso: non si può modificare la coda.'); return; }
+  S.tcQueue=S.tcQueue.filter(i=>i.id!==id);
+  renderIQ();
+}
+function renderIQ(){
+  const list=$('iqList'), empty=$('iqEmpty');
+  const delOk = S.tcQueueIdx<0;
+  if(!S.tcQueue.length){ list.innerHTML=''; empty.classList.remove('hide'); }
+  else{
+    empty.classList.add('hide');
+    list.innerHTML=S.tcQueue.map((iv,i)=>{
+      const done=i<S.tcQueueIdx, active=i===S.tcQueueIdx;
+      const cls=done?'done':active?'active':'';
+      const badge=done
+        ?`<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>`
+        :i+1;
+      return `<div class="iq-row ${cls}">
+        <div class="iq-num">${badge}</div>
+        <span class="iq-t">${fmt(iv.secs)}</span>
+        <button class="iq-del" onclick="removeInterval(${iv.id})" ${delOk?'':'disabled'}>
+          <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>`;
+    }).join('');
+  }
+  // Summary
+  if(S.tcQueue.length){
+    const tot=S.tcQueue.reduce((a,b)=>a+b.secs,0);
+    $('iqSummary').textContent=`${S.tcQueue.length} int. · tot. ${fmt(tot)}`;
+  } else $('iqSummary').textContent='';
 }
 
-function triggerInterval(){
+// --- Start time mode ---
+function startTimeModeRun(){
+  clearAllErr();
+  if(!S.tcQueue.length){ verrTc('Aggiungi almeno un intervallo prima di avviare.'); return false; }
+  const h0=pn($('tcH0').value);
+  if(h0===null){ verrTc('Inserisci h₀ iniziale.'); return false; }
+  if(h0<=0)    { verrTc('h₀ deve essere > 0.'); return false; }
+  const d=getDim(); if(!d||d<=0){ verrTc('Imposta la geometria del pozzetto.'); return false; }
+  S.acq.hCurr   = h0;
+  S.acq.awaitInput = false;
+  S.tcQueueIdx  = 0;
+  S.tcIntervalStart = Date.now();
+  tStart();
+  $('ctdWrap').classList.remove('hide');
+  $('h1Prompt').classList.add('hide');
+  renderIQ();
+  return true;
+}
+
+// --- Countdown ticker ---
+function tickCountdown(){
+  if(S.tcQueueIdx<0||S.tcQueueIdx>=S.tcQueue.length) return;
+  const iv    = S.tcQueue[S.tcQueueIdx];
+  const total = iv.secs * 1000;
+  const elapsed = Date.now() - S.tcIntervalStart;
+  const rem   = Math.max(0, total - elapsed);
+  const prog  = Math.min(1, elapsed/total);
+
+  // Countdown display
+  const rm=Math.floor(rem/60000), rs=Math.floor((rem%60000)/1000);
+  const ctd=$('ctdDisp');
+  ctd.textContent=`${String(rm).padStart(2,'0')}:${String(rs).padStart(2,'0')}`;
+  const cls = prog>.85?'alert':prog>.6?'warn':'';
+  ctd.className='ctd-time'+(cls?' '+cls:'');
+  const fill=$('ctdFill');
+  fill.style.width=(prog*100)+'%';
+  fill.className='ctd-fill'+(cls?' '+cls:'');
+
+  if(elapsed>=total) triggerTimeInterval(false);
+}
+
+// --- Trigger h1 input (called by countdown or manual Segna) ---
+function triggerTimeInterval(manual){
   if(S.acq.awaitInput) return;
-  S.acq.dtSecs = getAcqDtSecs();
-  if(S.acq.dtSecs<=0){ verrTc('Imposta Δt prima di avviare.'); return; }
-  // Capture actual elapsed time
-  S.acq.lapMs = tElapsed();
-  // Pause ticker
-  clearInterval(T.id);
+  if(S.tcQueueIdx<0||S.tcQueueIdx>=S.tcQueue.length) return;
+  // Capture exact elapsed wall-clock time since interval started
+  S.acq.lapMs = Date.now() - S.tcIntervalStart;
   S.acq.awaitInput = true;
-  // Show h1 prompt
-  const hCurr = S.acq.hCurr !== null ? S.acq.hCurr : (pn($('tcH0').value)||0);
-  $('tcH0Disp').textContent = hCurr>0 ? hCurr.toFixed(3)+' m' : '–';
-  $('tcH1').value='';
+  // Show prompt
+  $('h1PromptIdx').textContent = S.tcQueueIdx+1;
+  $('tcH0Disp').textContent    = S.acq.hCurr!==null ? S.acq.hCurr.toFixed(3)+' m' : '–';
+  $('tcH1').value = '';
   $('h1Prompt').classList.remove('hide');
   $('h1Prompt').classList.add('flash');
-  setTimeout(()=>$('h1Prompt').classList.remove('flash'),2200);
-  setTimeout(()=>$('tcH1').focus(),100);
-  updBtn();
+  setTimeout(()=>$('h1Prompt').classList.remove('flash'), 2200);
+  setTimeout(()=>{ try{$('tcH1').focus();}catch(e){} }, 120);
+  renderIQ();
 }
 
+// --- Register h1 and advance queue ---
 function registerTimeStep(){
   clearAllErr();
-  const h1=pn($('tcH1').value);
-  const h0ref = pn($('tcH0').value);
-  const hCurr = S.acq.hCurr !== null ? S.acq.hCurr : h0ref;
-  if(!hCurr||hCurr<=0) return verrTc('h₀ non impostato.');
-  if(!h1||h1<=0) return verrTc('Inserisci h₁ > 0.');
-  if(h1>=hCurr) return verrTc('h₁ deve essere < h precedente.');
-  const d=getDim(); if(!d||d<=0) return verrTc('Imposta la geometria del pozzetto.');
+  const h1  = pn($('tcH1').value);
+  const h0c = S.acq.hCurr;
+  if(h0c===null) return verrTc('Errore interno: h precedente non trovato.');
+  const hErr=validateHeads(h0c,h1);
+  if(hErr) return verrTc(hErr);
+  const d=getDim(); if(!d||d<=0) return verrTc('Geometria non impostata.');
   const dtSec = S.acq.lapMs/1000;
   if(dtSec<0.5) return verrTc('Δt troppo breve (< 0.5 s).');
   const A=calcArea(d,S.geo), F=calcF(d,S.geo);
-  const k=calcK(A,F,dtSec,hCurr,h1);
-  pushStep({dt:dtSec,h0:hCurr,h1,k,A,F,mode:'Δt'});
-  S.acq.hCurr = h1;
+  pushStep({dt:dtSec, h0:h0c, h1, k:calcK(A,F,dtSec,h0c,h1), A, F, mode:'Δt'});
+  S.acq.hCurr      = h1;
   S.acq.awaitInput = false;
-  S.acq.lapMs = 0;
-  // Hide prompt, reset countdown and restart timer
   $('h1Prompt').classList.add('hide');
-  $('ctdFill').style.width='0%';
-  $('ctdFill').className='ctd-fill';
-  $('ctdDisp').className='ctd-time';
-  // Restart timer
-  T.savedMs=0; T.lapStart=Date.now();
-  T.running=true; T.id=setInterval(tTick,80);
-  updTUI();
-  toast(`Lettura ${S.n}: k = ${fmtK(k)} m/s`);
-}
-
-// ── STEP HELPERS ──────────────────────────────────────────────
-function pushStep(step){
-  S.n++;
-  S.steps.push({i:S.n,...step});
-  renderList(); renderRes();
-  $('stepCtr').textContent = S.steps.length+1;
-  save();
-}
-
-function delStep(i){
-  S.steps=S.steps.filter(s=>s.i!==i);
-  renderList();renderRes();$('stepCtr').textContent=S.steps.length+1;save();
+  // Advance queue
+  S.tcQueueIdx++;
+  if(S.tcQueueIdx>=S.tcQueue.length){
+    // All intervals done
+    clearInterval(T.id); T.running=false; updTUI();
+    $('ctdWrap').classList.add('hide');
+    $('ctdLabel').textContent='Prossima lettura tra';
+    toast('✓ Tutti gli intervalli completati!', 4000);
+    S.tcQueueIdx=-1;
+  } else {
+    // Next interval
+    S.tcIntervalStart = Date.now();
+    // Reset fill
+    $('ctdFill').style.width='0%';
+    $('ctdFill').className='ctd-fill';
+    $('ctdDisp').className='ctd-time';
+  }
+  renderIQ();
+  toast(`Lettura ${S.n}: k = ${fmtK(S.steps[S.steps.length-1].k)} m/s`);
 }
 
 // ── GEOMETRY ──────────────────────────────────────────────────
-const calcArea=(d,g)=>g==='circular'?Math.PI*d*d:d*d;
-const calcF=(d,g)=>g==='circular'?5.5*d:5.5*(d/Math.sqrt(Math.PI));
-const calcK=(A,F,dt,h0,h1)=>(A/F)*(1/dt)*Math.log(h0/h1);
-const getDim=()=>pn($('dim').value);
-const pn=s=>{const v=parseFloat((s||'').replace(',','.'));return isNaN(v)?null:v};
+const getDim   = ()    => pn($('dim').value);
+const getHRef  = ()    => pn($('hRef').value);  // optional absolute reference head
+const calcArea = (d,g) => g==='circular' ? Math.PI*d*d : d*d;
+const calcF    = (d,g) => g==='circular' ? 5.5*d : 5.5*(d/Math.sqrt(Math.PI));
+// If h_ref is set: h_abs = h_ref − h_gauge  →  ln((h_ref−h0)/(h_ref−h1))
+// Otherwise:       direct absolute heads    →  ln(h0/h1)
+const calcK = (A,F,dt,h0,h1) => {
+  const hr = getHRef();
+  const lnRatio = hr !== null
+    ? Math.log((hr - h0) / (hr - h1))
+    : Math.log(h0 / h1);
+  return (A/F) * (1/dt) * lnRatio;
+};
+// Validate h0/h1 accounting for h_ref mode
+function validateHeads(h0, h1){
+  const hr = getHRef();
+  if(hr !== null){
+    if(hr <= 0)      return 'h_ref deve essere > 0 (altezza reale acqua sopra il fondo).';
+    if(h0 === null)  return 'Inserisci h₀ (es. 0 se usi l\'asta dal pelo libero).';
+    if(h1 === null)  return 'Inserisci h₁.';
+    if(h1 <= h0)     return 'h₁ deve essere > h₀ (abbassamento positivo verso il basso).';
+    if(hr - h0 <= 0) return `h_ref (${hr}) deve essere > h₀ (${h0}).`;
+    if(hr - h1 <= 0) return `h_ref (${hr}) deve essere > h₁ (${h1}).`;
+    if((hr-h0) <= (hr-h1)) return 'h₀ deve essere < h₁ (l\'acqua scende).';
+    return null;
+  } else {
+    if(h0 === null || h0 <= 0) return 'h₀ deve essere > 0. Se parti da zero usa il campo h_ref.';
+    if(h1 === null || h1 <= 0) return 'h₁ deve essere > 0.';
+    if(h1 >= h0)               return 'h₁ deve essere < h₀.';
+    return null;
+  }
+}
 
 function setGeo(g){
   S.geo=g;
-  $('btnCirc').classList.toggle('on',g==='circular');
-  $('btnSq').classList.toggle('on',g==='square');
+  $('btnCirc').classList.toggle('on', g==='circular');
+  $('btnSq').classList.toggle('on',   g==='square');
   const c=g==='circular';
-  $('dimLbl').textContent=c?'Raggio r (m)':'Lato a (m)';
-  $('dim').placeholder=c?'es. 0.25':'es. 0.50';
-  $('dimIco').innerHTML=c
+  $('dimLbl').textContent   = c ? 'Raggio r (m)' : 'Lato a (m)';
+  $('dim').placeholder      = c ? 'es. 0.25'     : 'es. 0.50';
+  $('dimIco').innerHTML     = c
     ?'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg>'
     :'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
-  updComp();updBtn();
+  updComp(); updBtnManual();
 }
-
 function updComp(){
   const d=getDim();
   if(d&&d>0){
@@ -897,21 +914,27 @@ function updComp(){
   } else $('compRow').classList.add('hide');
 }
 
-function updBtn(){
-  const h0=pn($('h0').value),h1=pn($('h1').value);
-  const dt=(parseFloat($('mins').value)||0)*60+(parseFloat($('secs').value)||0);
-  const d=getDim();
-  $('btnAdd').disabled=!(d&&d>0&&h0&&h0>0&&h1&&h1>0&&h1<h0&&dt>0);
+// ── STEPS ─────────────────────────────────────────────────────
+function pushStep(step){
+  S.n++;
+  S.steps.push({i:S.n,...step});
+  renderList(); renderRes();
+  $('stepCtr').textContent=S.steps.length+1;
+  save();
+}
+function delStep(i){
+  S.steps=S.steps.filter(s=>s.i!==i);
+  renderList(); renderRes();
+  $('stepCtr').textContent=S.steps.length+1;
+  save();
 }
 
 // ── RENDER ────────────────────────────────────────────────────
-const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(Math.floor(s%60)).padStart(2,'0')}`;
-const fmtK=k=>k.toExponential(3);
-const modeTag={'M':'manuale','Δh':'Δh fisso','Δt':'Δt fisso'};
+const modeTag={'M':'manuale','Δh':'Δh fisso','Δt':'Δt prog.'};
 
 function renderList(){
-  const card=$('cardList'),list=$('sList'),n=S.steps.length;
-  if(!n){card.classList.add('hide');return;}
+  const card=$('cardList'), list=$('sList'), n=S.steps.length;
+  if(!n){ card.classList.add('hide'); return; }
   card.classList.remove('hide');
   $('sCnt').textContent=n;
   list.innerHTML=S.steps.map(s=>`
@@ -937,22 +960,9 @@ function renderList(){
     </div>`).join('');
 }
 
-const mean=a=>a.length?a.reduce((s,x)=>s+x.k,0)/a.length:null;
-const gmean=a=>a.length?Math.exp(a.reduce((s,x)=>s+Math.log(x.k),0)/a.length):null;
-function kInterp(k){
-  if(k>=1e-1) return{cls:'Molto alta  (> 10⁻¹ m/s)',   lit:'Ghiaia pulita, ghiaia grossolana',             aq:'Acquifero ad alta produttività; drenaggio rapido'};
-  if(k>=1e-2) return{cls:'Alta        (10⁻² ÷ 10⁻¹)',  lit:'Ghiaia sabbiosa, sabbia grossa pulita',        aq:'Acquifero produttivo; elevata velocità di filtrazione'};
-  if(k>=1e-3) return{cls:'Media-alta  (10⁻³ ÷ 10⁻²)',  lit:'Sabbia grossa, sabbia medio-grossa',           aq:'Buona permeabilità; acquifero sfruttabile'};
-  if(k>=1e-4) return{cls:'Media       (10⁻⁴ ÷ 10⁻³)',  lit:'Sabbia media, sabbia fine pulita',             aq:'Permeabilità discreta; acquifero sfruttabile con cautela'};
-  if(k>=1e-5) return{cls:'Media-bassa (10⁻⁵ ÷ 10⁻⁴)',  lit:'Sabbia fine, sabbia limosa',                   aq:'Permeabilità moderata; lenta risposta idraulica'};
-  if(k>=1e-6) return{cls:'Bassa       (10⁻⁶ ÷ 10⁻⁵)',  lit:'Limo sabbioso, sabbia limosa fine',            aq:'Scarsa permeabilità; drenaggio molto lento'};
-  if(k>=1e-7) return{cls:'Molto bassa (10⁻⁷ ÷ 10⁻⁶)',  lit:'Limo, limo argilloso',                        aq:'Permeabilità molto ridotta; materiale semi-impermeabile'};
-  if(k>=1e-8) return{cls:'Quasi imperm.(10⁻⁸ ÷ 10⁻⁷)', lit:'Argilla limosa, till glaciale',                aq:'Praticamente impermeabile; usato come barriera idraulica'};
-  if(k>=1e-9) return{cls:'Impermeabile(10⁻⁹ ÷ 10⁻⁸)',  lit:'Argilla compatta, argilla plastica',           aq:'Impermeabile; fondo di discariche, nuclei di dighe'};
-  return      {cls:'Impermeabile(< 10⁻⁹ m/s)',          lit:'Argilla molto compatta, roccia integra',       aq:'Permeabilità trascurabile; barriera naturale'};
-}
-
-const kClass=k=>{
+const mean  = a => a.length ? a.reduce((s,x)=>s+x.k,0)/a.length : null;
+const gmean = a => a.length ? Math.exp(a.reduce((s,x)=>s+Math.log(x.k),0)/a.length) : null;
+const kClass= k => {
   if(k>=1e-1)return{l:'Ghiaia / Gravel',c:'#B83022',b:'#FAEEE9'};
   if(k>=1e-3)return{l:'Sabbia / Sand',c:'#B86B10',b:'#FEF3E2'};
   if(k>=1e-5)return{l:'Sabbia fine',c:'#8B6D10',b:'#FEFAE8'};
@@ -977,46 +987,60 @@ function renderRes(){
 }
 
 // ── VALIDATION ────────────────────────────────────────────────
-function verr(m){const e=$('verr');$('verrMsg').textContent=m;e.classList.remove('hide');}
-function verrDc(m){const e=$('verrDc');$('verrDcMsg').textContent=m;e.classList.remove('hide');}
-function verrTc(m){const e=$('verrTc');$('verrTcMsg').textContent=m;e.classList.remove('hide');}
-function clearAllErr(){
-  ['verr','verrDc','verrTc'].forEach(id=>$(id).classList.add('hide'));
-}
+function verr(m){$('verrMsg').textContent=m; $('verr').classList.remove('hide');}
+function verrDc(m){$('verrDcMsg').textContent=m; $('verrDc').classList.remove('hide');}
+function verrTc(m){$('verrTcMsg').textContent=m; $('verrTc').classList.remove('hide');}
+function clearAllErr(){ ['verr','verrDc','verrTc'].forEach(id=>$(id).classList.add('hide')); }
 
 // ── GPS ───────────────────────────────────────────────────────
 $('btnGps').addEventListener('click',()=>{
-  if(!navigator.geolocation){setGPS('err','GPS non supportato','');return;}
-  setGPS('busy','Acquisizione…','');$('btnGps').textContent='…';
+  if(!navigator.geolocation){ setGPS('err','GPS non supportato',''); return; }
+  setGPS('busy','Acquisizione…',''); $('btnGps').textContent='…';
   navigator.geolocation.getCurrentPosition(
-    p=>{const la=p.coords.latitude.toFixed(6),lo=p.coords.longitude.toFixed(6);
-      S.coords={la,lo};setGPS('ok','GPS acquisito ✓',`${la}°N, ${lo}°E`);
-      $('btnGps').textContent='Aggiorna';},
-    e=>{setGPS('err',e.code===1?'Accesso negato':'Errore GPS','');$('btnGps').textContent='GPS';}
-    ,{enableHighAccuracy:true,timeout:10000});
+    p=>{ const la=p.coords.latitude.toFixed(6),lo=p.coords.longitude.toFixed(6);
+      S.coords={la,lo}; setGPS('ok','GPS acquisito ✓',`${la}°N, ${lo}°E`);
+      $('btnGps').textContent='Aggiorna'; },
+    e=>{ setGPS('err', e.code===1?'Accesso negato':'Errore GPS','');
+      $('btnGps').textContent='GPS'; },
+    {enableHighAccuracy:true,timeout:10000}
+  );
 });
 function setGPS(st,lbl,coord){
-  const d=$('gpsDot');d.className='gps-dot';
-  if(st==='ok')d.classList.add('ok');
-  if(st==='err')d.classList.add('err');
-  if(st==='busy')d.classList.add('busy');
-  $('gpsLbl').textContent=lbl;$('gpsCoord').textContent=coord;
+  const d=$('gpsDot'); d.className='gps-dot';
+  if(st==='ok') d.classList.add('ok');
+  if(st==='err') d.classList.add('err');
+  if(st==='busy') d.classList.add('busy');
+  $('gpsLbl').textContent=lbl; $('gpsCoord').textContent=coord;
 }
 
 // ── REPORT ────────────────────────────────────────────────────
+function kInterp(k){
+  if(k>=1e-1)return{cls:'Molto alta  (> 10⁻¹ m/s)',lit:'Ghiaia pulita, ghiaia grossolana',aq:'Acquifero ad alta produttività; drenaggio rapido'};
+  if(k>=1e-2)return{cls:'Alta        (10⁻² ÷ 10⁻¹ m/s)',lit:'Ghiaia sabbiosa, sabbia grossa pulita',aq:'Acquifero produttivo; elevata velocità di filtrazione'};
+  if(k>=1e-3)return{cls:'Media-alta  (10⁻³ ÷ 10⁻² m/s)',lit:'Sabbia grossa, sabbia medio-grossa',aq:'Buona permeabilità; acquifero sfruttabile'};
+  if(k>=1e-4)return{cls:'Media       (10⁻⁴ ÷ 10⁻³ m/s)',lit:'Sabbia media, sabbia fine pulita',aq:'Permeabilità discreta; acquifero sfruttabile con cautela'};
+  if(k>=1e-5)return{cls:'Media-bassa (10⁻⁵ ÷ 10⁻⁴ m/s)',lit:'Sabbia fine, sabbia limosa',aq:'Permeabilità moderata; lenta risposta idraulica'};
+  if(k>=1e-6)return{cls:'Bassa       (10⁻⁶ ÷ 10⁻⁵ m/s)',lit:'Limo sabbioso, sabbia limosa fine',aq:'Scarsa permeabilità; drenaggio molto lento'};
+  if(k>=1e-7)return{cls:'Molto bassa (10⁻⁷ ÷ 10⁻⁶ m/s)',lit:'Limo, limo argilloso',aq:'Permeabilità molto ridotta; materiale semi-impermeabile'};
+  if(k>=1e-8)return{cls:'Quasi imp.  (10⁻⁸ ÷ 10⁻⁷ m/s)',lit:'Argilla limosa, till glaciale',aq:'Praticamente impermeabile; barriera idraulica'};
+  if(k>=1e-9)return{cls:'Impermeabile(10⁻⁹ ÷ 10⁻⁸ m/s)',lit:'Argilla compatta, argilla plastica',aq:'Impermeabile; fondo discariche, nuclei dighe'};
+  return{cls:'Impermeabile (< 10⁻⁹ m/s)',lit:'Argilla molto compatta, roccia integra',aq:'Permeabilità trascurabile; barriera naturale'};
+}
 function buildReport(){
   const sp=$('spotName').value||'N/A', nt=$('notes').value||'–';
   const coord=S.coords?`${S.coords.la}°N, ${S.coords.lo}°E`:'N/A';
   const d=getDim(), dl=S.geo==='circular'?'Raggio r':'Lato a';
   const now=new Date().toLocaleString('it-IT');
-  const kA=mean(S.steps),kG=gmean(S.steps);
+  const kA=mean(S.steps), kG=gmean(S.steps);
+  const modeNames={'manual':'Manuale','drop':'Δh fisso','time':'Δt programmati'};
   let r=[
     '╔══════════════════════════════════════╗',
-    '║      K-Field-Hydraulic  v2.0         ║',
+    '║      K-Field-Hydraulic  v3.0         ║',
     '║  Prova di permeabilità in sito       ║',
     '╚══════════════════════════════════════╝',
     `Data        : ${now}`,`Spot        : ${sp}`,
     `Note        : ${nt}`,`Coordinate  : ${coord}`,
+    `Procedura   : ${modeNames[S.mode]||S.mode}`,
     '','── Geometria ────────────────────────────',
     `Tipo        : ${S.geo==='circular'?'Circolare':'Quadrata'}`,
     `${dl}     : ${$('dim').value||'–'} m`,
@@ -1027,26 +1051,25 @@ function buildReport(){
   r.push('');r.push('── Risultati ────────────────────────────');
   r.push(`k medio (arit.) : ${kA?kA.toExponential(3)+' m/s':'–'}`);
   r.push(`k medio (geom.) : ${kG?kG.toExponential(3)+' m/s':'–'}`);
-  r.push('');
-  r.push('── Interpretazione Litologica ───────────');
   if(kA){
-    const i=kInterp(kA);
-    r.push(`Classe perm.    : ${i.cls}`);
-    r.push(`Litologia prob. : ${i.lit}`);
-    r.push(`Valutazione     : ${i.aq}`);
+    const iv=kInterp(kA);
+    r.push('');r.push('── Interpretazione Litologica ───────────');
+    r.push(`Classe perm.    : ${iv.cls}`);
+    r.push(`Litologia prob. : ${iv.lit}`);
+    r.push(`Valutazione     : ${iv.aq}`);
     r.push(`Rif. classif.   : Freeze & Cherry (1979)`);
   }
-  r.push('','── Metodo ───────────────────────────────');
+  r.push('');r.push('── Metodo ───────────────────────────────');
   r.push('Metodo  : Lefranc / Hvorslev (1951)','Formula : k = (A/F) × (1/Δt) × ln(h₀/h₁)','Rif.    : NTC 2008, Circ. Min. n. 617/2009','─────────────────────────────────────────');
   return r.join('\n');
 }
 async function copyReport(){
-  if(!S.steps.length){toast('Nessuna lettura da esportare');return;}
-  try{await navigator.clipboard.writeText(buildReport());toast('Report copiato negli appunti');}
-  catch{const t=document.createElement('textarea');t.value=buildReport();
-    t.style='position:fixed;opacity:0';document.body.appendChild(t);
-    t.select();document.execCommand('copy');document.body.removeChild(t);
-    toast('Report copiato negli appunti');}
+  if(!S.steps.length){ toast('Nessuna lettura da esportare'); return; }
+  try{ await navigator.clipboard.writeText(buildReport()); toast('Report copiato negli appunti'); }
+  catch{ const t=document.createElement('textarea'); t.value=buildReport();
+    t.style='position:fixed;opacity:0'; document.body.appendChild(t);
+    t.select(); document.execCommand('copy'); document.body.removeChild(t);
+    toast('Report copiato negli appunti'); }
 }
 
 // ── TOAST ─────────────────────────────────────────────────────
@@ -1055,60 +1078,79 @@ function toast(m,d=2500){const el=$('toast');$('toastTxt').textContent=m;
   el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),d);}
 
 // ── MODAL ─────────────────────────────────────────────────────
-function showModal(){$('modal').classList.add('show');}
-function hideModal(){$('modal').classList.remove('show');}
+function showModal(){ $('modal').classList.add('show'); }
+function hideModal(){ $('modal').classList.remove('show'); }
 function doReset(){
-  hideModal();tReset();
-  S.steps=[];S.n=0;S.coords=null;S.acq={hCurr:null,dtSecs:0,awaitInput:false,lapMs:0};
+  hideModal(); tReset();
+  S.steps=[]; S.n=0; S.coords=null; S.mode='manual';
+  S.acq={hCurr:null,awaitInput:false};
+  S.tcQueue=[]; S.tcQueueIdx=-1; S.tcIntervalStart=0;
   ['spotName','notes','dim','h0','h1','dcH0','dcDh','tcH0','tcH1'].forEach(id=>$(id).value='');
-  $('mins').value='0';$('secs').value='0';
-  $('tcMins').value='2';$('tcSecs').value='0';
-  setGeo('circular');setGPS('idle','Coordinate GPS','Non acquisite');
+  $('mins').value='0'; $('secs').value='0';
+  $('iqMins').value='2'; $('iqSecs').value='0';
+  setGeo('circular');
+  setGPS('idle','Coordinate GPS','Non acquisite');
   $('btnGps').textContent='GPS';
-  setMode('manual');clearAllErr();
-  renderList();renderRes();$('stepCtr').textContent=1;updComp();updBtn();
-  localStorage.removeItem('kfield');toast('Dati azzerati');
+  setMode('manual'); clearAllErr();
+  renderList(); renderRes(); renderIQ();
+  $('stepCtr').textContent=1; updComp(); updBtnManual();
+  localStorage.removeItem('kfield'); toast('Dati azzerati');
 }
-$('btnReset').addEventListener('click',showModal);
-$('modal').addEventListener('click',e=>{if(e.target===$('modal'))hideModal();});
+$('btnReset').addEventListener('click', showModal);
+$('modal').addEventListener('click', e=>{ if(e.target===$('modal')) hideModal(); });
 
 // ── PERSISTENCE ───────────────────────────────────────────────
-function save(){try{localStorage.setItem('kfield',JSON.stringify({
-  geo:S.geo,steps:S.steps,n:S.n,coords:S.coords,mode:S.mode,
-  spot:$('spotName').value,notes:$('notes').value,dim:$('dim').value
-}));}catch(e){}}
+function save(){
+  try{ localStorage.setItem('kfield', JSON.stringify({
+    geo:S.geo, steps:S.steps, n:S.n, coords:S.coords, mode:S.mode,
+    tcQueue:S.tcQueue,
+    spot:$('spotName').value, notes:$('notes').value, dim:$('dim').value
+  })); }catch(e){}
+}
 function load(){
   try{
-    const d=localStorage.getItem('kfield');if(!d)return;
+    const d=localStorage.getItem('kfield'); if(!d) return;
     const o=JSON.parse(d);
-    S.steps=o.steps||[];S.n=o.n||0;S.coords=o.coords||null;
-    if(o.spot)$('spotName').value=o.spot;
-    if(o.notes)$('notes').value=o.notes;
-    if(o.dim)$('dim').value=o.dim;
-    if(o.geo&&o.geo!==S.geo)setGeo(o.geo);
-    if(o.mode&&o.mode!==S.mode)setMode(o.mode);
-    if(o.coords)setGPS('ok','GPS acquisito ✓',`${o.coords.la}°N, ${o.coords.lo}°E`);
-    renderList();renderRes();$('stepCtr').textContent=S.steps.length+1;
-    updComp();updBtn();
+    S.steps=o.steps||[]; S.n=o.n||0; S.coords=o.coords||null;
+    S.tcQueue=o.tcQueue||[];
+    if(o.spot) $('spotName').value=o.spot;
+    if(o.notes) $('notes').value=o.notes;
+    if(o.dim) $('dim').value=o.dim;
+    if(o.geo&&o.geo!==S.geo) setGeo(o.geo);
+    if(o.mode&&o.mode!==S.mode) setMode(o.mode);
+    if(o.coords) setGPS('ok','GPS acquisito ✓',`${o.coords.la}°N, ${o.coords.lo}°E`);
+    renderList(); renderRes(); renderIQ();
+    $('stepCtr').textContent=S.steps.length+1;
+    updComp(); updBtnManual();
   }catch(e){}
 }
 
 // ── LISTENERS ─────────────────────────────────────────────────
-['h0','h1','mins','secs','dim'].forEach(id=>$(id).addEventListener('input',()=>{clearAllErr();if(id==='dim')updComp();updBtn();}));
-['dcH0','dcDh'].forEach(id=>$(id).addEventListener('input',()=>{clearAllErr();updDropBox(0);}));
-$('secs').addEventListener('blur',function(){let v=parseInt(this.value)||0;if(v>59)v=59;this.value=v;updBtn();});
-$('tcSecs').addEventListener('blur',function(){let v=parseInt(this.value)||0;if(v>59)v=59;this.value=v;});
+$('hRef').addEventListener('input',()=>{
+  const hr=getHRef();
+  $('hRefBadge').classList.toggle('hide', hr===null||hr<=0);
+  // Flip placeholder labels when h_ref mode active
+  const useOffset = hr!==null && hr>0;
+  $('h0').placeholder = useOffset ? '0.000 (da pelo libero)' : '0.000';
+  $('h1').placeholder = useOffset ? 'es. 0.050' : '0.000';
+  clearAllErr(); updBtnManual();
+});
+['h0','h1','mins','secs','dim'].forEach(id=>
+  $(id).addEventListener('input',()=>{ clearAllErr(); if(id==='dim') updComp(); updBtnManual(); }));
+['dcH0','dcDh'].forEach(id=>
+  $(id).addEventListener('input',()=>{ clearAllErr(); updDropBox(0); }));
+$('secs').addEventListener('blur',function(){let v=parseInt(this.value)||0;if(v>59)v=59;this.value=v;updBtnManual();});
+$('iqSecs').addEventListener('blur',function(){let v=parseInt(this.value)||0;if(v>59)v=59;this.value=v;});
 ['spotName','notes'].forEach(id=>$(id).addEventListener('input',save));
 
-// ── PWA ───────────────────────────────────────────────────────
+// ── PWA SW ────────────────────────────────────────────────────
 if('serviceWorker' in navigator){
-  const sw=`const C='kf-v2';self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.add('/'))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
+  const sw=`const C='kf-v3';self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.add('/'))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
   navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{});
 }
 
 // ── INIT ──────────────────────────────────────────────────────
-load();
-updTUI();
+load(); updTUI(); renderIQ();
 </script>
 </body>
 </html>
