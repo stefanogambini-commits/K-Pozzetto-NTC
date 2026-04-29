@@ -716,21 +716,37 @@ function tickCountdown(){
   $('ctdDisp').className='ctd-time'+(cls?' '+cls:'');
   $('ctdFill').style.width=(prog*100)+'%';
   $('ctdFill').className='ctd-fill'+(cls?' '+cls:'');
-  if(elapsed>=total) triggerTimeInterval();
+  // Trigger only when time is up AND not already waiting for user input
+  if(elapsed>=total && !S.acq.awaitInput) triggerTimeInterval();
 }
 function triggerTimeInterval(){
   if(S.acq.awaitInput) return;
   if(S.tcQueueIdx<0||S.tcQueueIdx>=S.tcQueue.length) return;
-  S.acq.lapMs=Date.now()-S.tcIntervalStart;
-  S.acq.awaitInput=true;
-  $('h1PromptIdx').textContent=S.tcQueueIdx+1;
-  $('tcH0Disp').textContent=S.acq.hCurr!==null?S.acq.hCurr.toFixed(3)+' m':'–';
+  // 1. Capture actual elapsed for THIS interval BEFORE any reset
+  S.acq.lapMs = Date.now() - S.tcIntervalStart;
+  S.acq.awaitInput = true;
+  // 2. Show prompt (tcQueueIdx still points to completed interval)
+  $('h1PromptIdx').textContent = S.tcQueueIdx+1;
+  $('tcH0Disp').textContent = S.acq.hCurr!==null ? S.acq.hCurr.toFixed(3)+' m' : '–';
   $('tcH1').value='';
   $('h1Prompt').classList.remove('hide');
   $('h1Prompt').classList.add('flash');
   setTimeout(()=>$('h1Prompt').classList.remove('flash'),2200);
-  setTimeout(()=>{ try{$('tcH1').focus();}catch(e){} },120);
+  // 3. Immediately advance queue and restart countdown for NEXT interval
+  //    so while the user types, the next interval is already counting down
+  S.tcQueueIdx++;
+  if(S.tcQueueIdx < S.tcQueue.length){
+    S.tcIntervalStart = Date.now();
+    $('ctdFill').style.width='0%';
+    $('ctdFill').className='ctd-fill';
+    $('ctdDisp').className='ctd-time';
+  }
   renderIQ();
+  // 4. Scroll to prompt + open keyboard (requestAnimationFrame = after paint)
+  requestAnimationFrame(()=>{
+    $('h1Prompt').scrollIntoView({behavior:'smooth', block:'nearest'});
+    $('tcH1').focus();
+  });
 }
 function registerTimeStep(){
   clearAllErr();
@@ -743,22 +759,21 @@ function registerTimeStep(){
   const d=getDim(); if(!d||d<=0) return verrTc('Geometria non impostata.');
   const A=calcArea(d,S.geo), F=calcF(d,S.geo);
   pushStep({dt:dtSec, h0:h0c, h1, k:calcK(A,F,dtSec,h0c,h1), A, F, mode:'Δt'});
-  S.acq.hCurr=h1; S.acq.awaitInput=false;
+  S.acq.hCurr=h1;
+  S.acq.awaitInput=false;
   $('h1Prompt').classList.add('hide');
-  S.tcQueueIdx++;
-  if(S.tcQueueIdx>=S.tcQueue.length){
+  // tcQueueIdx was already advanced in triggerTimeInterval — just check for end
+  const done = S.tcQueueIdx >= S.tcQueue.length;
+  if(done){
     clearInterval(T.id); T.running=false; updTUI();
     $('ctdWrap').classList.add('hide');
     S.tcQueueIdx=-1;
-    toast('✓ Tutti gli intervalli completati!',4000);
-  } else {
-    S.tcIntervalStart=Date.now();
-    $('ctdFill').style.width='0%';
-    $('ctdFill').className='ctd-fill';
-    $('ctdDisp').className='ctd-time';
   }
   renderIQ();
-  toast(`Lettura ${S.n}: k = ${fmtK(S.steps[S.steps.length-1].k)} m/s`);
+  toast(done
+    ? `✓ Prova completata! k ultimo = ${fmtK(S.steps[S.steps.length-1].k)} m/s`
+    : `Lettura ${S.n}: k = ${fmtK(S.steps[S.steps.length-1].k)} m/s`
+  , done ? 4000 : 2500);
 }
 
 // ── GEOMETRY ──────────────────────────────────────────────────
