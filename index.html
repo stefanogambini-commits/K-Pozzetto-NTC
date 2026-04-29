@@ -716,35 +716,25 @@ function tickCountdown(){
   $('ctdDisp').className='ctd-time'+(cls?' '+cls:'');
   $('ctdFill').style.width=(prog*100)+'%';
   $('ctdFill').className='ctd-fill'+(cls?' '+cls:'');
-  // Trigger only when time is up AND not already waiting for user input
-  if(elapsed>=total && !S.acq.awaitInput) triggerTimeInterval();
+  if(elapsed>=total) triggerTimeInterval();
 }
 function triggerTimeInterval(){
   if(S.acq.awaitInput) return;
   if(S.tcQueueIdx<0||S.tcQueueIdx>=S.tcQueue.length) return;
-  // 1. Capture actual elapsed for THIS interval BEFORE any reset
+  // Capture exact elapsed for THIS interval
   S.acq.lapMs = Date.now() - S.tcIntervalStart;
   S.acq.awaitInput = true;
-  // 2. Show prompt (tcQueueIdx still points to completed interval)
+  // Show prompt — queue NOT advanced yet, tcIntervalStart NOT reset yet
   $('h1PromptIdx').textContent = S.tcQueueIdx+1;
   $('tcH0Disp').textContent = S.acq.hCurr!==null ? S.acq.hCurr.toFixed(3)+' m' : '–';
   $('tcH1').value='';
   $('h1Prompt').classList.remove('hide');
   $('h1Prompt').classList.add('flash');
   setTimeout(()=>$('h1Prompt').classList.remove('flash'),2200);
-  // 3. Immediately advance queue and restart countdown for NEXT interval
-  //    so while the user types, the next interval is already counting down
-  S.tcQueueIdx++;
-  if(S.tcQueueIdx < S.tcQueue.length){
-    S.tcIntervalStart = Date.now();
-    $('ctdFill').style.width='0%';
-    $('ctdFill').className='ctd-fill';
-    $('ctdDisp').className='ctd-time';
-  }
   renderIQ();
-  // 4. Scroll to prompt + open keyboard (requestAnimationFrame = after paint)
+  // Scroll + focus for keyboard
   requestAnimationFrame(()=>{
-    $('h1Prompt').scrollIntoView({behavior:'smooth', block:'nearest'});
+    $('h1Prompt').scrollIntoView({behavior:'smooth',block:'nearest'});
     $('tcH1').focus();
   });
 }
@@ -762,18 +752,24 @@ function registerTimeStep(){
   S.acq.hCurr=h1;
   S.acq.awaitInput=false;
   $('h1Prompt').classList.add('hide');
-  // tcQueueIdx was already advanced in triggerTimeInterval — just check for end
-  const done = S.tcQueueIdx >= S.tcQueue.length;
-  if(done){
+  S.tcQueueIdx++;
+  if(S.tcQueueIdx>=S.tcQueue.length){
     clearInterval(T.id); T.running=false; updTUI();
     $('ctdWrap').classList.add('hide');
     S.tcQueueIdx=-1;
+    toast('✓ Prova completata!',4000);
+  } else {
+    // ← countdown for NEXT interval starts NOW, after user confirms
+    S.tcIntervalStart = Date.now();
+    const niv=S.tcQueue[S.tcQueueIdx];
+    const rm=Math.floor(niv.secs/60), rs=niv.secs%60;
+    $('ctdDisp').textContent=`${String(rm).padStart(2,'0')}:${String(rs).padStart(2,'0')}`;
+    $('ctdDisp').className='ctd-time';
+    $('ctdFill').style.width='0%';
+    $('ctdFill').className='ctd-fill';
+    toast(`Lettura ${S.n}: k = ${fmtK(S.steps[S.steps.length-1].k)} m/s`);
   }
   renderIQ();
-  toast(done
-    ? `✓ Prova completata! k ultimo = ${fmtK(S.steps[S.steps.length-1].k)} m/s`
-    : `Lettura ${S.n}: k = ${fmtK(S.steps[S.steps.length-1].k)} m/s`
-  , done ? 4000 : 2500);
 }
 
 // ── GEOMETRY ──────────────────────────────────────────────────
