@@ -382,9 +382,7 @@ input:focus{border-color:var(--br);box-shadow:0 0 0 3px rgba(92,61,30,.15)}
           </div>
           <button class="btn-add-int" onclick="addInterval()">+ Aggiungi</button>
         </div>
-        <div class="iq-list" id="iqList">
-          <div class="iq-empty" id="iqEmpty">Nessun intervallo aggiunto</div>
-        </div>
+        <div class="iq-list" id="iqList"></div>
       </div>
       <div class="ctd-wrap hide" id="ctdWrap">
         <div class="ctd-row">
@@ -669,10 +667,10 @@ function removeInterval(id){
   renderIQ();
 }
 function renderIQ(){
-  const list=$('iqList'), empty=$('iqEmpty'), canDel=S.tcQueueIdx<0;
-  if(!S.tcQueue.length){ list.innerHTML=''; empty.classList.remove('hide'); }
-  else{
-    empty.classList.add('hide');
+  const list=$('iqList'), canDel=S.tcQueueIdx<0;
+  if(!S.tcQueue.length){
+    list.innerHTML='<div class="iq-empty">Nessun intervallo aggiunto</div>';
+  } else {
     list.innerHTML=S.tcQueue.map((iv,i)=>{
       const done=i<S.tcQueueIdx, active=i===S.tcQueueIdx;
       const badge=done
@@ -813,12 +811,13 @@ const gmean = a => a.length ? Math.exp(a.reduce((s,x)=>s+Math.log(x.k),0)/a.leng
 // Permeability classification — Freeze & Cherry (1979)
 // Each range: [lowerBound, label, color, bg]
 const K_CLASSES = [
-  [1e-1, 'Ghiaia / Gravel',       '#B83022','#FAEEE9'],
-  [1e-3, 'Sabbia / Sand',         '#B86B10','#FEF3E2'],
-  [1e-5, 'Sabbia fine / Silt',    '#8B6D10','#FEFAE8'],
-  [1e-7, 'Limo / Silt',           '#1E6E42','#E8F5EE'],
-  [1e-9, 'Argilla / Clay',        '#0D6B73','#E3F4F5'],
-  [   0, 'Impermeabile',          '#155FA0','#E6F1FA'],
+  [1e-1, 'Ghiaia / Gravel',          '#B83022','#FAEEE9'],
+  [1e-3, 'Sabbia / Sand',            '#B86B10','#FEF3E2'],
+  [1e-4, 'Sabbia media / Med. sand', '#C4820A','#FEF5E4'],
+  [1e-5, 'Sabbia fine / Fine sand',  '#8B6D10','#FEFAE8'],
+  [1e-7, 'Limo / Silt',              '#1E6E42','#E8F5EE'],
+  [1e-9, 'Argilla / Clay',           '#0D6B73','#E3F4F5'],
+  [   0, 'Impermeabile',             '#155FA0','#E6F1FA'],
 ];
 const K_INTERP = [
   [1e-1, 'Molto alta  (> 10⁻¹ m/s)',     'Ghiaia pulita, ghiaia grossolana',       'Acquifero ad alta produttività; drenaggio rapido'],
