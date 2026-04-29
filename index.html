@@ -681,10 +681,14 @@ function markDrop(){
   if(h0i===null||dh===null) return verrDc('Imposta h₀ e Δh prima di segnare.');
   const d=getDim(); if(!d||d<=0) return verrDc('Imposta la geometria del pozzetto.');
   const hCurr = S.acq.hCurr !== null ? S.acq.hCurr : h0i;
-  const hNext = Math.round((hCurr + dh)*1e6)/1e6;  // gauge increases downward
   const hr = getHRef();
+  // In gauge mode (h_ref set): readings increase downward → add Δh
+  // In absolute mode (no h_ref):  head decreases → subtract Δh
+  const hNext = hr !== null
+    ? Math.round((hCurr + dh)*1e6)/1e6
+    : Math.round((hCurr - dh)*1e6)/1e6;
   if(hr !== null){
-    if(hr - hNext <= 0) return verrDc('Abbassamento ha raggiunto il fondo (h_ref − hNext ≤ 0): prova completata.');
+    if(hr - hNext <= 0) return verrDc('Abbassamento ha raggiunto il fondo (h_ref − h ≤ 0): prova completata.');
   } else {
     if(hNext <= 0) return verrDc('Livello prossimo ≤ 0 m: prova completata.');
   }
@@ -702,8 +706,10 @@ function updDropBox(curMs){
   const h0i=pn($('dcH0').value), dh=pn($('dcDh').value), box=$('dropBox');
   if(h0i===null||dh===null){ box.innerHTML='<div class="db-note">Imposta h₀ e Δh, poi avvia il cronometro.</div>'; return; }
   const hCurr = S.acq.hCurr !== null ? S.acq.hCurr : h0i;
-  const hNext = Math.round((hCurr + dh)*1e6)/1e6;
-  const hr=getHRef(), n=S.steps.length+1;
+  const hr=getHRef();
+  const hNext = hr !== null
+    ? Math.round((hCurr + dh)*1e6)/1e6
+    : Math.round((hCurr - dh)*1e6)/1e6;
   const limited = hr!==null ? (hr-hNext)<=0 : hNext<=0;
   box.innerHTML=`
     <div class="db-row">
@@ -1085,7 +1091,9 @@ function doReset(){
   S.steps=[]; S.n=0; S.coords=null; S.mode='manual';
   S.acq={hCurr:null,awaitInput:false};
   S.tcQueue=[]; S.tcQueueIdx=-1; S.tcIntervalStart=0;
-  ['spotName','notes','dim','h0','h1','dcH0','dcDh','tcH0','tcH1'].forEach(id=>$(id).value='');
+  ['spotName','notes','dim','h0','h1','dcH0','dcDh','tcH0','tcH1','hRef'].forEach(id=>$(id).value='');
+  $('hRefBadge').classList.add('hide');
+  $('h0').placeholder='0.000'; $('h1').placeholder='0.000';
   $('mins').value='0'; $('secs').value='0';
   $('iqMins').value='2'; $('iqSecs').value='0';
   setGeo('circular');
