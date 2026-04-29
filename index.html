@@ -939,6 +939,19 @@ function renderList(){
 
 const mean=a=>a.length?a.reduce((s,x)=>s+x.k,0)/a.length:null;
 const gmean=a=>a.length?Math.exp(a.reduce((s,x)=>s+Math.log(x.k),0)/a.length):null;
+function kInterp(k){
+  if(k>=1e-1) return{cls:'Molto alta  (> 10⁻¹ m/s)',   lit:'Ghiaia pulita, ghiaia grossolana',             aq:'Acquifero ad alta produttività; drenaggio rapido'};
+  if(k>=1e-2) return{cls:'Alta        (10⁻² ÷ 10⁻¹)',  lit:'Ghiaia sabbiosa, sabbia grossa pulita',        aq:'Acquifero produttivo; elevata velocità di filtrazione'};
+  if(k>=1e-3) return{cls:'Media-alta  (10⁻³ ÷ 10⁻²)',  lit:'Sabbia grossa, sabbia medio-grossa',           aq:'Buona permeabilità; acquifero sfruttabile'};
+  if(k>=1e-4) return{cls:'Media       (10⁻⁴ ÷ 10⁻³)',  lit:'Sabbia media, sabbia fine pulita',             aq:'Permeabilità discreta; acquifero sfruttabile con cautela'};
+  if(k>=1e-5) return{cls:'Media-bassa (10⁻⁵ ÷ 10⁻⁴)',  lit:'Sabbia fine, sabbia limosa',                   aq:'Permeabilità moderata; lenta risposta idraulica'};
+  if(k>=1e-6) return{cls:'Bassa       (10⁻⁶ ÷ 10⁻⁵)',  lit:'Limo sabbioso, sabbia limosa fine',            aq:'Scarsa permeabilità; drenaggio molto lento'};
+  if(k>=1e-7) return{cls:'Molto bassa (10⁻⁷ ÷ 10⁻⁶)',  lit:'Limo, limo argilloso',                        aq:'Permeabilità molto ridotta; materiale semi-impermeabile'};
+  if(k>=1e-8) return{cls:'Quasi imperm.(10⁻⁸ ÷ 10⁻⁷)', lit:'Argilla limosa, till glaciale',                aq:'Praticamente impermeabile; usato come barriera idraulica'};
+  if(k>=1e-9) return{cls:'Impermeabile(10⁻⁹ ÷ 10⁻⁸)',  lit:'Argilla compatta, argilla plastica',           aq:'Impermeabile; fondo di discariche, nuclei di dighe'};
+  return      {cls:'Impermeabile(< 10⁻⁹ m/s)',          lit:'Argilla molto compatta, roccia integra',       aq:'Permeabilità trascurabile; barriera naturale'};
+}
+
 const kClass=k=>{
   if(k>=1e-1)return{l:'Ghiaia / Gravel',c:'#B83022',b:'#FAEEE9'};
   if(k>=1e-3)return{l:'Sabbia / Sand',c:'#B86B10',b:'#FEF3E2'};
@@ -1014,7 +1027,17 @@ function buildReport(){
   r.push('');r.push('── Risultati ────────────────────────────');
   r.push(`k medio (arit.) : ${kA?kA.toExponential(3)+' m/s':'–'}`);
   r.push(`k medio (geom.) : ${kG?kG.toExponential(3)+' m/s':'–'}`);
-  r.push('','Metodo  : Lefranc / Hvorslev (1951)','Formula : k = (A/F) × (1/Δt) × ln(h₀/h₁)','Rif.    : NTC 2008, Circ. Min. n. 617/2009','─────────────────────────────────────────');
+  r.push('');
+  r.push('── Interpretazione Litologica ───────────');
+  if(kA){
+    const i=kInterp(kA);
+    r.push(`Classe perm.    : ${i.cls}`);
+    r.push(`Litologia prob. : ${i.lit}`);
+    r.push(`Valutazione     : ${i.aq}`);
+    r.push(`Rif. classif.   : Freeze & Cherry (1979)`);
+  }
+  r.push('','── Metodo ───────────────────────────────');
+  r.push('Metodo  : Lefranc / Hvorslev (1951)','Formula : k = (A/F) × (1/Δt) × ln(h₀/h₁)','Rif.    : NTC 2008, Circ. Min. n. 617/2009','─────────────────────────────────────────');
   return r.join('\n');
 }
 async function copyReport(){
